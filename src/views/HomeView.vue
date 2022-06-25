@@ -1,18 +1,625 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<Navbar></Navbar>
+<div class="home">
+    <!-- <div class="front-menu">
+            <ul>
+                <li class="fButton"><router-link to="/merchant">Merchant</router-link></li>
+                <li class="fButton"><router-link to="/FMT">Find My Token</router-link></li>
+                <li class="fButton"><router-link to="/FAQ">FAQ</router-link></li>
+            </ul>
+    </div> -->
+    <div class="hero">
+        <transition appear name="fade">
+            <div class="headerDiv">
+                <p class="buyP">Buy Electricity Instantly With Powerplug</p>
+                <p class="miniText">Lorem Ipsum simply dummy text of the printing and typesetting industry. 
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an </p>
+                <button><a href="#hero">Buy Electricity<span><i class="ri-arrow-down-line down"></i></span></a></button>
+            </div>
+        </transition>
+    </div>
+        <div class="backgroundDiv">
+            <div class="i-container" id="hero">
+                <div class="l-hero" data-aos="fade-right">
+                    <!-- <h5>We are Powerplug</h5> -->
+                    <p class="msg2">All fields must be filled</p>
+                    <form @submit.prevent="onSubmit" class="myForm" id="myForm" action="">
+                        <div class="form-control" :class="{invalid: buyerNumberValidity === 'invalid'}">
+                            <transition appear name="slide-in">
+                                <input type="tel" placeholder="Phone Number" class="i-size" v-model ="buyerNumber" @blur="validateInput4">
+                            </transition>
+                            <p v-if="buyerNumberValidity === 'invalid'" class="msg">This field must not be empty!</p>
+                            <p class="msg1">The number appears to be wrong!</p>
+                        </div>
+                        <div class="form-control" :class="{invalid: buyerMeterValidity === 'invalid'}">
+                            <transition appear name="slide-in4">
+                                <input type="text" placeholder="Meter/Account Number" class="i-size" v-model = "buyerMeter"  @blur="validateInput1">
+                            </transition>
+                            <p v-if="buyerMeterValidity === 'invalid'" class="msg">This field must not be empty!</p>
+                            <p class="msg3">The number appears to be wrong!</p>
+                        </div>
+                        <div class="form-control custom-select" :class="{invalid: buyerMeterTypeValidity === 'invalid'}">
+                            <transition appear name="slide-in3">
+                                <select name="meterNo" id="meterNo"  v-model = "buyerMeterType"  @blur="validateInput2">
+                                    <option>--Select your meter type--</option>
+                                    <option value="Prepaid">Prepaid</option>
+                                    <option value="Postpaid">Postpaid</option>
+                                </select>
+                            </transition>
+                            <p v-if="buyerMeterTypeValidity === 'invalid'" class="msg">An option must be choosen!</p>
+                        </div>
+                        <div class="form-control custom-select" :class="{invalid: buyerStateValidity === 'invalid'}">
+                            <transition appear name="slide-in1">
+                                <select id="State" name="State" v-model = "buyerState"  @blur="validateInput3">
+                                    <option>State</option>
+                                    <option value="Delta">Delta</option>
+                                    <option value="Edo">Edo</option>
+                                    <option value="Ekiti">Ekiti</option>
+                                    <option value="Ondo">Ondo</option>
+                                </select>
+                            </transition>
+                            <p v-if="buyerStateValidity === 'invalid'" class="msg">An option must be choosen!</p>
+                        </div>
+                        <div class="form-control" id="select" :class="{invalid: elecProviderValidity === 'invalid'}" >
+                            <transition appear name="slide-in2">
+                                <select class="i-size" id="State" name="State" v-model = "elecProvider"  @blur="validateInput7">
+                                    <option>Distribution Company</option>
+                                    <option value="BEDC">BEDC</option>
+                                    <option value="IKE" disabled>Ikeja Electric(coming soon)</option>
+                                    <option value="IBEDC" disabled>IBEDC(coming soon)</option>
+                                    <option value="EKEDC" disabled>EKEDC(coming soon)</option>
+                                    <option value="EEDC" disabled>EEDC(coming soon)</option>
+                                    <option value="AEDC" disabled>AEDC(coming soon)</option>
+                                    <option value="PHED" disabled>PHED(coming soon)</option>
+                                    <option value="KEDCO" disabled>KEDCO(coming soon)</option>
+                                </select>
+                            </transition>
+                            <p v-if="elecProviderValidity === 'invalid'" class="msg">An option must be choosen!!</p>
+                        </div>
+                        <div class="form-control end">
+                            <button class="proceed">Proceed<span><i class="ri-arrow-right-up-line nextP"></i></span></button>
+                            
+                            <div class="agent">
+                                <i class="ri-customer-service-2-line cCare"></i>
+                                <p>Talk to Agent 08112345678</p>
+                            </div>
+                        </div>
+                    </form>
+                </div> 
+                <div class="r-hero" data-aos="fade-left">
+                    <img src="../assets/mainImage.png" alt="image">
+                </div> 
+        </div>
+        </div>
+    <!-- <div class="service">
+        <i class="ri-chat-4-fill chatbot" id="chatBot"></i>
+    </div> -->
+    <div class="section-about">
+            <div class="aboutP">
+        <div class="about">
+            <div class="fill">
+                <i class="ri-map-pin-2-fill"></i>
+            </div>            
+            <p class="aState"><span class="mainS">30+</span><br>States</p>
+        </div>
+        <div class="about">
+            <div class="fill">
+                <i class="ri-archive-drawer-fill"></i>
+            </div>     
+            <div class="postS">
+                <p class="post"><span class="mainS">1000+</span> <br>
+                    Postpaid & Prepaid Meters
+                </p>
+                <!-- <p></p>
+                <p></p> -->
+            </div>        
+        </div>
+        <div class="about">
+            <div class="fill">
+                <i class="ri-user-fill"></i>
+            </div>            
+            <p class="cus"><span class="mainS">90+</span><br>Customers</p>
+        </div>
+    </div>
+    </div>
+    <div class="reason">
+        <div class="r_container">
+            <div>
+                <h3 data-aos="fade-right" class="gradient-text">Why should you use Powerplug?</h3>
+                <img src="../assets/Group.png" alt="Chart" class="chart">
+            </div>
+            <div class="r-container" data-aos="fade-left">
+                <div class="m-reason">
+                    <i class="ri-smartphone-fill"></i>
+                    <p>Purchase your token from your device</p>
+                </div>
+                <div class="m-reason down">
+                    <i class="ri-lightbulb-fill"></i>
+                    <p>Get your Electricity restored instantly</p>
+                </div>
+                <div class="m-reason">
+                    <i class="ri-customer-service-fill"></i>
+                    <p>24/7 customer support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section2">
+        <div class="aboutUs">
+            <h3 class="gradient-text" data-aos="fade-left">About Us</h3>
+            <p class="a-text" data-aos="fade-right">PowerPlug is an internet powered platform that allows users purchase electricity token instantly anywhere
+                 and anytime. Our satisfaction is to provide our customers with ultimate convenience. Your Power plug anywhere, anytime</p>
+        </div>
+        <div class="product">
+            <h3 class="gradient-text" data-aos="fade-right">Product and Services</h3>
+            <div class="p_icon" data-aos="fade-left">
+                <div class="_icon">
+                    <a href="#hero"><i class="ri-lightbulb-flash-fill green"></i></a>
+                    <p class="namE">Buy Electricity</p>
+                </div>
+                <div class="_icon">
+                    <i class="ri-user-2-fill redd"></i>
+                    <p class="namE">Get Electrician</p>
+                    <p class="cms">Coming Soon</p>
+                </div>
+                <div class="_icon">
+                    <i class="material-symbols-outlined redd">solar_power</i>
+                    <!-- <img src="../assets/solarPanel.png" alt=""> -->
+                    <p class="namE">Install Solar/Inverter</p>
+                    <p class="cms">Coming Soon</p>
+                </div>
+                <div class="_icon">
+                    <i class="material-symbols-outlined redd">shopping_cart</i>
+                    <!-- <img src="../assets/cart.png" alt=""> -->
+                    <p class="namE">Power Shop</p>
+                    <p class="cms">Coming Soon</p>
+                </div>
+                <div class="_icon">
+                    <img src="../assets/image24.png" alt="" class="gen">
+                    <p class="namE">Get Generator Repairer</p>
+                    <p class="cms">Coming Soon</p>
+                </div>
+                <div class="_icon">
+                    <img src="../assets/image25.png" alt="" class="ac">
+                    <p class="namE">Get AC Repairer</p>
+                    <p class="cms">Coming Soon</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section3">
+        <!-- class="gradient-text" -->
+        <h5 data-aos="fade-right">Our Service Providers</h5>
+        <div class="s-menu">
+            <div class="s-menu-m">
+                <div class="m-item">
+                    <img src="../assets/bedc.png" alt="bedc logo" style="margin-top: 1.5em;">
+                </div>
+                <div class="m-item">
+                    <img src="../assets/ikeja.png" alt="Ikeja electric logo">
+                    <p>Coming Soon</p>
+                </div>
+                <div class="m-item">
+                    <img src="../assets/ibedc.png" alt="IBEDC logo" >
+                    <p>Coming Soon</p>
+                </div>
+                <div class="m-item">
+                    <img src="../assets/ekedc.png" alt="Eko Electric logo">
+                    <p>Coming Soon</p>
+                </div>
+               
+            </div>
+            <div class="s-menu-m">
+                 <div class="m-item">
+                    <img src="../assets/eedc.png" alt="Enugu Electric logo" >
+                    <p>Coming Soon</p>
+                </div>
+                <div class="m-item">
+                    <img src="../assets/aedc.png" alt="Abuja electric logo" >
+                    <p>Coming Soon</p>
+                </div>
+                <div class="m-item">
+                    <img src="../assets/phed.png" alt="PHED logo">
+                    <p>Coming Soon</p>
+                </div>
+                <div class="m-item">
+                    <img src="../assets/kedco.png" alt="Eko Electric logo">
+                    <p>Coming Soon</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section4">
+        <div class="ss-container">
+            <div class="l-download" data-aos="fade-right">
+                <img src="../assets/mobile.png" alt="image">
+            </div>
+            <div class="r-download">
+                <h2 >Download Powerplug Mobile App Today</h2>
+                <div class="download">
+                    <button class="b-flex">
+                        <img src="../assets/image21.png" alt="playstore">
+                        <p>Soon On<br><span>Google Play</span></p>
+                    </button>
+                    <button class="b-flex2">
+                        <img src="../assets/image22.png" alt="apple">
+                        <p>Soon On<br><span>App Store</span></p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section5">
+        <div class="s_container">
+            <h3 class="gradient-text" data-aos="fade-right">Testimonials</h3>
+            <div class="s_flex">
+                <div class="r_items">
+                    <div class="contents">
+                        <h2>Olaoluwa Adetula</h2>
+                        <p>Top notch service by @powerplugng . Excellent service in less than 5mins. I got notified through text and email.</p>
+                    </div>
+               </div>
+               <div class="r_items">
+                    <div class="contents">
+                        <h2>Henry</h2>
+                        <p>As a first time user, I love your service. Highly commendable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="l-section">
+        <div class="l-container">
+            <form @submit.prevent="emailRegister()" action="">
+                 <div class="l-flex">
+                <div class="l-loop">
+                    <p class="s-loop">Stay in the loop</p>
+                    <p class="s-loop2">Subscribe to receive the latest news and updates about TDA.
+                        We promise not to spam you! </p>
+                </div>
+                <div class="r-loop">
+                    <div class="form-control2">
+                      <input type="email" placeholder="Enter Email Address" v-model="register" @blur="registerSure">
+                      <button>continue</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Navbar from '@/components/Navbar.vue';
+import Footer from '@/components/Footer.vue';
+import { onMounted } from 'vue';
+import AOS from "aos";
 
 export default {
   name: 'HomeView',
-  components: {
-    HelloWorld
-  }
+    setup() {
+        onMounted(() => {
+            AOS.init();
+        })
+    },
+    components: {
+        Navbar,
+        Footer
+    },
+   data() {
+            return {
+                register: '',
+                buyerStateValidity: 'pending',
+                elecProviderValidity: 'pending',
+                buyerNumberValidity: 'pending',
+                buyerMeterValidity: 'pending',
+                buyerMeterTypeValidity: 'pending',
+                // amountValidity: 'pending'
+            }   
+        },
+    computed: {
+        elecProvider: {
+            get() {
+                return this.$store.state.elecProvider
+            },
+            set(value) {
+                this.$store.commit('addElecProvider', value)
+            }
+        },
+        buyerNumber: {
+            get() {
+                return this.$store.state.buyerNumber
+            },
+            set(value) {
+                this.$store.commit('addBuyerNumber', value)
+            }
+        },
+        buyerState: {
+            get() {
+                return this.$store.state.buyerState
+            },
+            set(value) {
+                this.$store.commit('addBuyerState', value)
+            }
+        },
+        buyerMeter: {
+            get() {
+                return this.$store.state.buyerMeter
+            },
+            set(value) {
+                this.$store.commit('addBuyerMeter', value)
+            }
+        },
+        buyerMeterType: {
+            get() {
+                return this.$store.state.buyerMeterType
+            },
+            set(value) {
+                this.$store.commit('addBuyerMeterType', value)
+            }
+        },
+    },
+    methods: {
+        onSubmit() {
+            const message = document.querySelector ('.msg2')
+            const prob = this.$store.state.buyerMeter.length;
+            const telephone = this.$store.state.buyerNumber.length;
+
+             if (this.$store.state.buyerState === "State" || this.$store.state.buyerNumber === "" || telephone > 0 && telephone < 11 || telephone > 11 || this.$store.state.buyerMeter === "" || prob > 0 && prob < 11 || prob === 12 || prob > 13 || this.$store.state.buyerMeterType === "" || this.$store.state.buyerDisco === 'Distribution Company' ) {    
+                    message.style.display = 'block';
+            
+                } else {
+                    message.style.display = 'none';
+                    this.$router.push('/buyElectricity')
+                }
+        },
+        emailRegister() {
+            if(this.register !== '') {
+                this.$notify({ 
+                    type: "success", 
+                    text: "Thanks for registering. We will definitely keep you in the loop!" 
+                });
+                // alert("Thanks for registering. We will definitely keep you in the loop!");
+                this.register = '';
+            }
+        },
+        validateInput4() {
+            const telephone = this.$store.state.buyerNumber.length;
+            const wrongNo = document.querySelector ('.msg1')
+            if(this.$store.state.buyerNumber === '') {
+                this.buyerNumberValidity = 'invalid';
+            } else {
+                this.buyerNumberValidity = 'valid'
+            }
+
+            if (telephone > 0 && telephone < 11 || telephone > 11) {
+                wrongNo.style.display = 'block'
+            } else {
+                wrongNo.style.display = 'none'
+            }
+        },
+        validateInput3() {
+            if(this.$store.state.buyerState === '--Select State--') {
+                this.buyerStateValidity = 'invalid';
+            } else {
+                this.buyerStateValidity = 'valid'
+            }
+        },
+        validateInput7() {
+            if(this.$store.state.buyerDisco === '--Electricity Provider--') {
+                this.elecProviderValidity = 'invalid';
+            } else {
+                this.elecProviderValidity = 'valid'
+            }
+        },
+        validateInput2() {
+            if(this.$store.state.buyerMeterType === '--Select your meter type--') {
+                this.buyerMeterTypeValidity = 'invalid';
+            } else {
+                this.buyerMeterTypeValidity = 'valid'
+            }
+        },
+        validateInput1() {
+            const prob = this.$store.state.buyerMeter.length;
+            const wrongN = document.querySelector ('.msg3')
+
+            if(this.$store.state.buyerMeter === '') {
+                this.buyerMeterValidity = 'invalid';
+            } else {
+                this.buyerMeterValidity = 'valid'
+            }
+            if (prob > 0 && prob < 11 || prob === 12 || prob > 13) {
+                wrongN.style.display = 'block';
+            }
+            else {
+                wrongN.style.display = 'none'
+            }
+        },
+        // validateInput() {
+        //     if(this.$store.state.amount === '') {
+        //         this.amountValidity = 'invalid';
+        //     } else {
+        //         this.amountValidity = 'valid'
+        //     }
+        // },
+    },
 }
 </script>
+
+<style scoped>
+ @media only screen and (min-width: 280px) {
+    
+    .mainS {
+       color: #2D2D2D; 
+       font-size: 20px;
+    }
+    .alignL {
+        font-size: 20px;
+        text-align: left;
+    }
+    .backgroundDiv {
+        background-image: url('../assets/mainImage.png');
+        background-repeat: no-repeat;
+        padding: 8em .5em 1em .5em;
+    }
+    .myForm {
+        margin-top: 4em;
+    }
+}
+    .section-about {
+        margin-top: 80px;
+        margin-bottom: 100px;
+    }
+    .m-reason p {
+        font-weight: 500;
+        font-size: 14.9932px;
+        line-height: 140%;
+    }
+    .m-reason i {
+        margin-top: 1em;
+        font-size: 50px;
+        color: #D91821;
+    }
+    .aboutP {
+        display: flex;
+        justify-content: space-between;
+        gap: .5em;
+        width: 85%;
+        margin: 0 auto;
+    }
+    .about {
+        display: flex;
+        text-align: center;
+        flex-grow: 1;
+        flex-basis: 0;
+    }
+    .aState, .cus{
+        font-size: 12px;
+        margin-top: 0em;
+        text-align: left;
+    }
+    .postS {
+        text-align: left;
+        font-size: 12px;
+    }
+    .fill {
+        margin-top: .5em;
+        margin-right: .2em;
+    }
+    .about i {
+        background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
+        border-radius: 50%;
+        padding: .5em;
+        color: white;
+    }
+    .headerDiv {
+        margin-top: 3em;
+        text-align: center;
+    }
+    .headerDiv button {
+        padding: 1.5em 2.5em;
+        margin-top: 3em;
+    }
+    .down {
+        margin-left: 5px;
+        vertical-align: middle;
+    }
+    .headerDiv a {
+        color: white;
+    }
+    .fade-enter-from {
+        opacity: 0;
+    }
+    .fade-enter-active {
+        transition: opacity 3s ease;
+    }
+    .fade-leave-to {
+        opacity: 0;
+    }
+    .fade-leave-active {
+        transition: opacity 3s ease;
+    }
+    .slide-in-enter-active,
+    .slide-in1-enter-active,
+    .slide-in2-enter-active,
+    .slide-in3-enter-active,
+    .slide-in4-enter-active,
+    .slide-in5-enter-active {
+        transition: all 1s ease;
+    }
+    .slide-in-enter-from,
+    .slide-in1-enter-from,
+    .slide-in2-enter-from,
+    .slide-in3-enter-from,
+    .slide-in4-enter-from,
+    .slide-in5-enter-from {
+        opacity: 0;
+    }
+    .slide-in-enter-from {
+        transform: translateX(-10px);
+
+    }
+    .slide-in1-enter-from {
+        transform: translateX(-20px);
+    }
+    .slide-in2-enter-from {
+        transform: translateX(-30px);
+    }
+    .slide-in3-enter-from {
+        transform: translateX(-40px);
+    }
+    .slide-in4-enter-from {
+        transform: translateX(-50px);
+    }
+    .slide-in5-enter-from {
+        transform: translateX(20px);
+    }
+    @media only screen and (min-width: 768px) {
+        .myForm {
+            margin-top: 0em;
+        }
+        .backgroundDiv {
+            background-image: none;
+            padding: 0em;
+        }
+        .mainS {
+            font-weight: 700;
+            font-size: 38.9825px;
+            line-height: 37px;
+        }
+        .about {
+            justify-content: center;
+    }
+        .aboutP {
+            display: flex;
+            justify-content: space-between;
+            gap: 1em;
+            width: 50%;
+            margin: 0 auto;
+        }
+        .fill {
+            margin-top: 1em;
+        }
+        .alignL {
+            font-weight: 600;
+            font-size: 30px;
+            line-height: 140%;
+            text-align: center;
+        }
+    }
+    @media only screen and (min-width: 1024px) {
+        .m-reason i {
+            font-size: 90px;
+            margin-top: 0em;
+        }
+        
+        .alignL {
+            font-weight: 600;
+            font-size: 45.7012px;
+            line-height: 140%;
+            text-align: center;
+        }
+    }
+</style>
