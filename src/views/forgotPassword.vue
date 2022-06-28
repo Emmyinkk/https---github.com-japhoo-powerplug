@@ -14,11 +14,17 @@
                     </transition>
                 </div>
                 <div class="p-button2">
-                    <button><router-link to="/merchant"><i class="ri-arrow-left-line"></i>Go back</router-link></button>
-                    <button id="proceed">Next</button>
+                    <div class="link-layout btn-align">
+                        <router-link to="/merchant"><i class="ri-arrow-left-line"></i>Go back</router-link>
+                    </div>
+                    <button class="btn-align" id="proceed">Next</button>
                 </div>
             </form>
         </div>
+    </div>
+    <div class="success" id="hideMe">
+        <p>You will recieve an email shortly!</p>
+        <i @click="onClose()" class="ri-close-line"></i>
     </div>
 <Footer />
 </template>
@@ -39,17 +45,24 @@ import Footer from '@/components/Footer.vue';
         methods: {
             onSubmit() {
                 const error = document.querySelector ('.errorMsg');
+                const success = document.querySelector ('.success')
 
                 if(this.email === '') {
                     error.style.display = 'inline-block'
                 } else {
                     error.style.display = 'none'
-                    this.$notify({ 
-                        type: "success", 
-                        text: "An email will be sent to you shortly!" 
-                    });
+                    if(success.classList.contains('showw') === false) {
+                        success.classList.add('showw')
+                    }
                 }
                 this.email = ''
+            },
+            onClose() {
+                const success = document.querySelector ('.success')
+
+                if(success.classList.contains('showw') === true) {
+                        success.classList.remove('showw')
+                }
             },
         }
     }
@@ -60,6 +73,19 @@ import Footer from '@/components/Footer.vue';
         display: flex;
         justify-content: space-between;
         gap: 1em;
+    }
+    .link-layout {
+        background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
+        padding: 10px;
+        text-align: center;
+    }
+    a {
+        /* padding-left: 25px; */
+        font-size: 14px;
+    }
+    .btn-align {
+        flex-grow: 1;
+        flex-basis: 0;
     }
     .p-button2 i {
         vertical-align: middle;
@@ -90,5 +116,8 @@ import Footer from '@/components/Footer.vue';
         display: none;
         color: #D91821;
         font-size: 10px;
+    }
+    .showw {
+        right: 0;
     }
 </style>

@@ -188,7 +188,7 @@ export default {
         padding: 5px 0px 100px 0px;
     }
     h1 {
-        margin-top: 2em;
+        margin-top: 3em;
         text-align: center;
         color: #D91821;
     }
@@ -196,7 +196,6 @@ export default {
         font-weight: 700;
         line-height: 202.5%;
         margin-top: 2em; 
-        color: #D91821;
     }
     h4 {
         display: flex;

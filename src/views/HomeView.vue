@@ -12,8 +12,7 @@
         <transition appear name="fade">
             <div class="headerDiv">
                 <p class="buyP">Buy Electricity Instantly With Powerplug</p>
-                <p class="miniText">Lorem Ipsum simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an </p>
+                <p class="miniText">We're here to help you pay for your electricity bills from your comfort and get your tokens instantly</p>
                 <button><a href="#hero">Buy Electricity<span><i class="ri-arrow-down-line down"></i></span></a></button>
             </div>
         </transition>
@@ -41,7 +40,7 @@
                         <div class="form-control custom-select" :class="{invalid: buyerMeterTypeValidity === 'invalid'}">
                             <transition appear name="slide-in3">
                                 <select name="meterNo" id="meterNo"  v-model = "buyerMeterType"  @blur="validateInput2">
-                                    <option>--Select your meter type--</option>
+                                    <option>Meter Type</option>
                                     <option value="Prepaid">Prepaid</option>
                                     <option value="Postpaid">Postpaid</option>
                                 </select>
@@ -80,8 +79,7 @@
                             <button class="proceed">Proceed<span><i class="ri-arrow-right-up-line nextP"></i></span></button>
                             
                             <div class="agent">
-                                <i class="ri-customer-service-2-line cCare"></i>
-                                <p>Talk to Agent 08112345678</p>
+                                <a href="tel: 08112345678"><i class="ri-customer-service-2-line cCare"></i><p>Talk to Agent 08112345678</p></a>
                             </div>
                         </div>
                     </form>
@@ -287,6 +285,10 @@
             </form>
         </div>
     </div>
+    <div class="success" id="hideMe">
+        <p>Thanks for registering. We will definitely keep you in the loop!</p>
+        <i @click="onClose()" class="ri-close-line"></i>
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -367,7 +369,7 @@ export default {
             const prob = this.$store.state.buyerMeter.length;
             const telephone = this.$store.state.buyerNumber.length;
 
-             if (this.$store.state.buyerState === "State" || this.$store.state.buyerNumber === "" || telephone > 0 && telephone < 11 || telephone > 11 || this.$store.state.buyerMeter === "" || prob > 0 && prob < 11 || prob === 12 || prob > 13 || this.$store.state.buyerMeterType === "" || this.$store.state.buyerDisco === 'Distribution Company' ) {    
+             if (this.$store.state.buyerState === "State" || this.$store.state.buyerNumber === "" || telephone > 0 && telephone < 11 || telephone > 11 || this.$store.state.buyerMeter === "" || prob > 0 && prob < 11 || prob === 12 || prob > 13 || this.$store.state.buyerMeterType === "Meter Type" || this.$store.state.buyerDisco === 'Distribution Company' ) {    
                     message.style.display = 'block';
             
                 } else {
@@ -376,14 +378,21 @@ export default {
                 }
         },
         emailRegister() {
+            const success = document.querySelector ('.success')
+
             if(this.register !== '') {
-                this.$notify({ 
-                    type: "success", 
-                    text: "Thanks for registering. We will definitely keep you in the loop!" 
-                });
-                // alert("Thanks for registering. We will definitely keep you in the loop!");
+               if(success.classList.contains('showw') === false) {
+                    success.classList.add('showw')
+               }
                 this.register = '';
             }
+        },
+        onClose() {
+            const success = document.querySelector ('.success')
+
+             if(success.classList.contains('showw') === true) {
+                    success.classList.remove('showw')
+               }
         },
         validateInput4() {
             const telephone = this.$store.state.buyerNumber.length;
@@ -437,13 +446,6 @@ export default {
                 wrongN.style.display = 'none'
             }
         },
-        // validateInput() {
-        //     if(this.$store.state.amount === '') {
-        //         this.amountValidity = 'invalid';
-        //     } else {
-        //         this.amountValidity = 'valid'
-        //     }
-        // },
     },
 }
 </script>
@@ -464,10 +466,22 @@ export default {
         background-repeat: no-repeat;
         padding: 8em .5em 1em .5em;
     }
-    .myForm {
+    .i-container {
         margin-top: 4em;
     }
+    .headerDiv {
+        margin-top: 0em;
+        text-align: center;
+    }
 }
+    .agent a {
+       display: flex;
+        flex-wrap: nowrap;
+        gap: .5em;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+    }
     .section-about {
         margin-top: 80px;
         margin-bottom: 100px;
@@ -495,6 +509,9 @@ export default {
         flex-grow: 1;
         flex-basis: 0;
     }
+    .showw {
+        right: 0;
+    }
     .aState, .cus{
         font-size: 12px;
         margin-top: 0em;
@@ -513,10 +530,6 @@ export default {
         border-radius: 50%;
         padding: .5em;
         color: white;
-    }
-    .headerDiv {
-        margin-top: 3em;
-        text-align: center;
     }
     .headerDiv button {
         padding: 1.5em 2.5em;
@@ -577,6 +590,7 @@ export default {
         transform: translateX(20px);
     }
     @media only screen and (min-width: 768px) {
+
         .myForm {
             margin-top: 0em;
         }
@@ -619,6 +633,10 @@ export default {
             font-weight: 600;
             font-size: 45.7012px;
             line-height: 140%;
+            text-align: center;
+        }
+        .headerDiv {
+            margin-top: 3em;
             text-align: center;
         }
     }

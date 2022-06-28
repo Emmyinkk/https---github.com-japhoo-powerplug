@@ -5,7 +5,7 @@
             <h2 class="reg">Login as a Merchant</h2>
             <form @submit.prevent="onSubmit" action="" id="MyForm">
                 <div class="form-control">
-                    <p class="error">Phone Number <span class="errorMsg"> Cannot be Empty!</span></p>
+                    <p class="error">Phone Number <span class="errorMsg"> Cannot be Empty!</span><span class="errorM"> Number looks wrong!</span></p>
                     <transition appear name="slide-fade2">
                         <input type="tel" class="i-size" v-model ="bNumber" @blur="checkError"/>
                     </transition>
@@ -67,46 +67,42 @@ import Footer from '@/components/Footer.vue';
                 this.showPassword = !this.showPassword;
             },
             onSubmit() {
-                // const mForm = document.getElementById ('MyForm')
-                // const error = document.querySelector ('.error');
-                // const error1 = document.querySelector ('.error1');
                 const errorMsg = document.querySelector ('.errorMsg');
                 const errorMsg1 = document.querySelector ('.errorMsg1');
 
                 if(this.bNumber === '') {
-                    // error.style.color = 'red';
                     errorMsg.style.display = 'inline-block';
                 } 
                 if (this.bPassword === '') {
-                    // error1.style.color = 'red';
                     errorMsg1.style.display = 'inline-block';
                 }
                 if (this.bNumber !== '' || this.bPassword !== '') {
-                    this.bNumber === ''
-                    this.bPassword === ''
+                    this.bNumber = ''
+                    this.bPassword = ''
                 }
             },
             checkError() {
-                // const error = document.querySelector ('.error');
                 const errorMsg = document.querySelector ('.errorMsg');
+                const error = document.querySelector ('.errorM');
+                const tel = this.bNumber.length
 
                 if(this.bNumber != '') {
-                    // error.style.color = 'black';
                     errorMsg.style.display = 'none';
                 } else {
-                    // error.style.color = 'red';
                     errorMsg.style.display = 'inline-block';
+                }
+                if(tel == 11) {
+                    error.style.display = 'none';
+                } else {
+                    error.style.display = 'inline-block'
                 }
             },
             checkError1() {
-                const error1 = document.querySelector ('.error1');
                 const errorMsg1 = document.querySelector ('.errorMsg1');
 
                 if(this.bPassword != '') {
-                    // error1.style.color = 'black';
                     errorMsg1.style.display = 'none';
                 } else {
-                    // error1.style.color = 'red';
                     errorMsg1.style.display = 'inline-block';
                 }
             },
@@ -169,7 +165,7 @@ import Footer from '@/components/Footer.vue';
 .m-register a {
     color: #D91821;
 }
-.errorMsg, .errorMsg1 {
+.errorMsg, .errorMsg1, .errorM {
         display: none;
         color: #D91821;
         font-size: 10px

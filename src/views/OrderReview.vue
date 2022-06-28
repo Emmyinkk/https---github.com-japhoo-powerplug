@@ -2,8 +2,8 @@
     <Navbar3></Navbar3>
         <div class="topH">
             <ul class="headerNav">
-                <router-link class="mHeaderNav" to="/buyElectricity"><li>Buy Electricity</li></router-link>
-                <router-link class="mHeaderNav" to="/orderReview"><li>Order Review</li></router-link>
+                <router-link class="mHeaderNav" to="/buyElectricity"><li class="list">Buy Electricity</li></router-link>
+                <router-link class="mHeaderNav" to="/orderReview"><li class="list">Order Review</li></router-link>
                 <span class="mHeaderNav disabled-link"><router-link to="/completeOrder"><li>Order Complete</li></router-link></span>
             </ul>
         </div>
@@ -41,10 +41,10 @@
                 </div>
             </div>
             <div></div>
-            <div class="or-container2">
+            <div class="or-container2 tottal">
                 <div class="left">
-                    <p class="total">Grand Total </p>
-                    <p>&#8358; {{ result }}</p>
+                    <h2 class="total">Grand Total </h2>
+                    <h2> {{ results }} </h2>
                 </div>
             </div>
             <hr class="or-mini">
@@ -146,8 +146,11 @@ import Footer from '@/components/Footer.vue';
                 }
             },
             result() {
-                return parseInt(this.charges) + parseInt(this.amount)
-            }
+                    return parseInt(this.charges) + parseInt(this.amount)
+            },
+            results() {
+                    return '₦'+ this.result.toLocaleString()
+            },
         },
         methods: {
             onClick() {
@@ -169,7 +172,7 @@ import Footer from '@/components/Footer.vue';
     padding-top: 1em;
     padding-bottom: 1em;
     }
-     .disabled-link {
+    .disabled-link {
         cursor: not-allowed;
     }
 
@@ -182,13 +185,21 @@ import Footer from '@/components/Footer.vue';
 @media only screen and (min-width: 280px) {
 
     .topH {
-        margin-top: 3.2em;
+        margin-top: 3.3em;
     }
     .mHeaderNav {
         padding: 1em;
     }
     .headerNav a {
         font-size: 12px;
+    }
+    .list {
+        margin-top: .5em;
+    }
+    
+    .or-button button {
+        padding: 1em;
+        width: 100%;
     }
 }
 @media only screen and (min-width: 1024px) {
@@ -212,6 +223,10 @@ import Footer from '@/components/Footer.vue';
     }
     .headerNav a {
         font-size: 15px;
+    }
+    .or-button button {
+        padding: 1.5em;
+        width: 100%;
     }
 }
     .headerNav {
@@ -237,8 +252,12 @@ import Footer from '@/components/Footer.vue';
         background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
     }
     .orderReview {
-        margin-top: 5em;
-        
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: -5em;
     }
     a {
         color: white;
@@ -249,7 +268,7 @@ import Footer from '@/components/Footer.vue';
         font-size: 12px;
     }
     .or-container {
-        margin-top: 3em;
+        margin-top: 1em;
         width: 100%;
     }
     .or-container2 {
@@ -264,9 +283,5 @@ import Footer from '@/components/Footer.vue';
         display: flex;
         justify-content: space-between;
         background: white;
-    }
-    .or-button button {
-        padding: 1.5em;
-        width: 100%;
     }
 </style>

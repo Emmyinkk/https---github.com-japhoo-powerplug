@@ -33,6 +33,10 @@
                 </form>
             </div>
         </div>
+         <div class="success" id="hideMe">
+            <p>Thanks for your feedback. We appreciate it!</p>
+            <i @click="onClose()" class="ri-close-line"></i>
+        </div>
     </div>
     <Footer />
 </template>
@@ -59,6 +63,7 @@ import Footer from '@/components/Footer.vue'
                 const errorMsg = document.querySelector ('.errorMsg');
                 const errorMsg1 = document.querySelector ('.errorMsg1');
                 const errorMsg2 = document.querySelector ('.errorMsg2');
+                const success = document.querySelector ('.success')
 
                 if(this.bName === '') {
                     errorMsg.style.display = 'inline-block';
@@ -70,10 +75,19 @@ import Footer from '@/components/Footer.vue'
                     errorMsg2.style.display = 'inline-block';
                 }
                 if (this.bName !== '' && this.bEmail !== '' && this.bText !== '') {
-                    this.$notify({ type: "success", text: "Thanks for your feedback!" });   
+                    if(success.classList.contains('showw') === false) {
+                            success.classList.add('showw')
+                    }
                     this.bName = '';
                     this.bEmail = '';
                     this.bText = '';
+                }
+            },
+             onClose() {
+                const success = document.querySelector ('.success')
+
+                if(success.classList.contains('showw') === true) {
+                        success.classList.remove('showw')
                 }
             },
             checkError() {
@@ -151,6 +165,9 @@ import Footer from '@/components/Footer.vue'
         font-style: normal;
         font-weight: 400;
         line-height: 150.3%;
+    }
+    .showw {
+        right: 0;
     }
     .s-info {
         padding: 2em;

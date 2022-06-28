@@ -11,7 +11,7 @@
         <div class="p-container">
             <div class="popUpEx" id="pop" ref="bankTransfer">
                 <p class="p-header">Bank Transfer</p>
-                <p class="p-text">Hi <span id="color">{{ buyerName }}</span>, make <span id="color">&#8358;{{ result }}</span> payment into the account below and upload proof of
+                <p class="p-text">Hi <span id="color">{{ buyerName }}</span>, make <span id="color">&#8358;{{ results }}</span> payment into the account below and upload proof of
                     payment (Teller or receipt)
                 </p>
                 <div class="left">
@@ -68,6 +68,7 @@ import Navbar4 from '@/components/Navbar4.vue';
         },
         data() {
             return {
+                charges: 100,
                 files: null,
             }
         },
@@ -89,8 +90,11 @@ import Navbar4 from '@/components/Navbar4.vue';
                 }
             },
             result() {
-                return 100 + parseInt(this.amount)
+                return parseInt(this.charges) + parseInt(this.amount)
             },
+            results() {
+                return this.result.toLocaleString()
+            }
         },
         methods: {
             onFileChange(e) {
@@ -122,7 +126,7 @@ import Navbar4 from '@/components/Navbar4.vue';
 <style scoped>
     .bankTransfer {
         display: flex;
-        height: 95vh;
+        height: 90vh;
         flex-direction: column;
         justify-content: center;
         align-items: center;

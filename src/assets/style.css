@@ -18,13 +18,6 @@ body {
 .pop a:hover {
     color: #D91821;
 }
-.my-notification {
-      background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
-      color: white;
-      margin-top: 4.5em;
-      padding: .5em 0em .5em 1em;
-      border-radius: .5em 0em 0em .5em;
-}
 .chatbot {
     background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
     font-size: 20px;
@@ -228,9 +221,18 @@ button {
         background-repeat: no-repeat;
     } */
     .hero {
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 0em;
+        padding-bottom: 0em;
+    }
+    /* .hero {
         padding-top: 5em;
         padding-bottom: 2em;
-    }
+    } */
     .l-hero h5{
         text-align: center;
         font-weight: 700;
@@ -276,11 +278,14 @@ button {
         padding: 1em;
         border: 1px solid #8692A6;
         font-family: inherit;
+        -webkit-appearance: none;
+        background-color: white;
+        font-size: 16px;
     }
     .s-size {
         width: 100%;
     }
-    input[type="text"],.date, .cdNumber,
+    input[type="text"],
     [type="email"], [type="number"],
     [type="tel"], [type="password"] {
         box-sizing: border-box;
@@ -288,6 +293,8 @@ button {
         padding: 1em;
         border: 1px solid #8692A6;
         font-family: inherit;
+        background-color: white;
+        font-size: 16px;
     }
     .submit {
         width: 50%;
@@ -300,15 +307,15 @@ button {
     }
     .end {
         display: flex;
-        /* height: 20px; */
         margin-bottom: 3em;
         flex-wrap: nowrap;
         gap: .5em;
         justify-content: space-between;
     }
     .cCare {
-        margin-top: .2em;
+        vertical-align: middle;
         font-size: 1.5em;
+        margin-top: 0em;
     }
     .proceed {
         padding: 0em 2em;
@@ -321,26 +328,16 @@ button {
     .agent {
         width: 45%;
         max-width: 50%;
-        display:flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
         padding: .5em;
-        gap: .1em;
         background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
         box-shadow: none;
         color: white;
     }
     .agent p {
-        width: 100%;
-        text-align: center;
         color: white;
-        font-size: 11.5px;
-        letter-spacing: 1.5px;
-        margin-top: .5em;
-        margin-bottom: 0em;
-        /* margin: 0em; */
+        text-align: left;
+        margin-top: 0em;
     }
-
     .section1 i {
         font-size: 2em;
         vertical-align: middle;
@@ -625,7 +622,7 @@ button {
     /* BUY ELECTRICITY */
     .hero2 {
         margin: 0 auto;
-        max-width: 90%;
+        width: 90%;
         font-weight: 400;
         font-size: 8px;
         color: #FFFFFF;
@@ -633,14 +630,15 @@ button {
     .header{
         text-align: center;
         margin-top: 1em;
-        margin-bottom: 3em;
     }
     .chang {
         background: #FFF1F1;
         font-weight: 500;
         font-size: 10px;
         color: rgba(217, 24, 33, 0.8);
-        padding: 1em .5em;
+        padding: 1em;
+        width: 70%;
+        margin: 0 auto;
     }
     .head {
         font-weight: 600;
@@ -739,7 +737,6 @@ button {
         background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
         width: 100%;
         padding: 1em;
-        margin-bottom: 5em;
     }
     .l-section {
         margin-top: 50px;
@@ -931,16 +928,16 @@ button {
     }
     .or-flex2 {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: space-between;
         gap: 1em;
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
     }
     .or-type-t {
         color: #525252;
         font-weight: 700;
-        font-size: 12px;
+        font-size: 10px;
         line-height: 26px;
     }
     .p-button {
@@ -1020,17 +1017,38 @@ button {
     /* SUCCESS MESSAGE */
     .successful {
         display: flex;
-        height: 100vh;
+        height: 80vh;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: -6em;
+        margin-top: -2em;
+    }
+    .success {
+        display: flex;
+        justify-content: space-between;
+        background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
+        padding: 1em;
+        width: 60%;
+        position: fixed;
+        top: 75px;
+        right: -500px;
+        z-index: 999;
+        transition: 0.5s right;
+    }
+    
+    .success p {
+        color: white;
+        font-size: 12px;
+    }
+    .success i {
+        color: white;
+        cursor: pointer;
     }
     .s-container {
         width: 90%;
+        max-width: 700px;
         margin: 0 auto;
         border-radius: .5em;
-        background-color: white;
     }
     .s-icon { 
         width: 100px;
@@ -1062,7 +1080,7 @@ button {
         border-radius: 0px 0px 10px 10px;
     }
     .s-item-container {
-        padding: 2em;
+        padding: 1em;
         display: flex;
         justify-content: space-between;
         gap: 1em;
@@ -1147,6 +1165,15 @@ button {
         height: 70px;
         opacity: 1;
         padding: 5px 0px 40px 0px;
+    }
+    .or-payment img {
+        width: 20px;
+        height: auto;
+        margin-top: .5em;
+    }
+    .grBa {
+        flex-grow: 1;
+        flex-basis: 0;
     }
 }
 @media only screen and (min-width: 768px) {
@@ -1330,7 +1357,7 @@ button {
     .hero2 {
         margin: 0 auto;
         max-width: 70%;
-    }
+     }
     .head {
         margin-top: 0em;
         margin-bottom: .5em;
@@ -1343,9 +1370,7 @@ button {
     .left {
         font-size: 15px;
     }
-    .s-container {
-        background-color: white;
-    }
+
     /* CONTACT US */
     .Myform {
         max-width: 70%;
@@ -1375,19 +1400,9 @@ button {
         flex-direction: row;
         width: 100%;
     }
-    .or-payment img {
-        width: 20px;
-        height: auto;
-        margin-top: 1em;
-    }
-    .grBa {
-        flex-grow: 1;
-        flex-basis: 0;
-    }
     .or-type-t {
         color: #525252;
         font-size: 15px;
-        margin-top: .4em;
     }
     .card-container {
         width: 50%;
@@ -1402,6 +1417,18 @@ button {
         width: 60%;
         margin: 0 auto;
     }
+    .s-head {
+        text-align: center;
+        font-weight: 700;
+        font-size: 44px;
+        line-height: 82px;
+        width: 100%;
+    }
+    .s-item-container {
+        width: 80%;
+        margin: 0 auto;
+    }
+
 }
 @media only screen and (min-width: 1024px) {
     .navbar {
@@ -1583,8 +1610,8 @@ button {
         line-height: 20px;
     }
     .s-container {
-        width: 50%;
-        max-width: 60%;
+        width: 60%;
+        max-width: 700px;
         height: auto;
     }
     .header{
@@ -1616,6 +1643,12 @@ button {
         width: 40px;
         height: auto;
         margin-top: .5em;
+    }
+    .cCare {
+        margin-top: 0em;
+    }
+    .success {
+        width: 20%;
     }
 }
 @media only screen and (min-width: 1440px) {

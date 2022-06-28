@@ -23,7 +23,7 @@
             <div class="f-flex">
                 <div class="f-element">
                     <p class="f-head">Products and Services</p>
-                    <a href="#hero">Buy  Electricity</a><br>
+                    <router-link to="/">Buy Electricity</router-link><br>
                     <a href="#">Get Electrician <span>coming soon</span></a><br>
                     <a href="#">Get Generator Repairer <span>coming soon</span></a><br>
                     <a href="#">Get AC Repairer <span>coming soon</span></a><br>
@@ -38,8 +38,8 @@
                 </div>
                 <div class="f-element">
                     <p class="f-head">Help</p>
-                    <a href="#">FAQS</a><br>
-                        <a href="#">Contact Us</a>
+                    <router-link to="/FAQ">FAQ</router-link><br>
+                    <router-link to="/contact">Contact Us</router-link>
                 </div>
                 <div class="f-element">
                     <p class="f-head">Transparency</p>

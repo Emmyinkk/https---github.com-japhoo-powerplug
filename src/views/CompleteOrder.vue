@@ -2,9 +2,9 @@
 <Navbar4 />
      <div class="topH">
         <ul class="headerNav">
-            <router-link class="mHeaderNav" to="/buyElectricity"><li>Buy Electricity</li></router-link>
-            <router-link class="mHeaderNav" to="/orderReview"><li>Order Review</li></router-link>
-            <router-link class="mHeaderNav" to="/completeOrder"><li>Order Complete</li></router-link>
+            <span class="mHeaderNav disabled-link"><router-link to="/buyElectricity"><li>Buy Electricity</li></router-link></span>
+            <span class="mHeaderNav disabled-link"><router-link to="/orderReview"><li>Order Review</li></router-link></span>
+            <router-link class="mHeaderNav" to="/completeOrder"><li class="list">Order Complete</li></router-link>
         </ul>
     </div>
     <div class="successful">
@@ -53,11 +53,23 @@ import Footer from '@/components/Footer.vue';
         padding-top: 1em;
         padding-bottom: 1em;
     }
+    .disabled-link {
+        cursor: not-allowed;
+    }
+
+    .disabled-link > a {
+        display: inline-block;
+        pointer-events: none;
+        text-decoration: none;
+    }
+    .list {
+        margin-top: .7em;
+    }
 
 @media only screen and (min-width: 280px) {
 
     .topH {
-        margin-top: 3.2em;
+        margin-top: 3em;
     }
     .mHeaderNav {
         padding: 1em;
