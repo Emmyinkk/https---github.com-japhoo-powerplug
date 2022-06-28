@@ -1,26 +1,32 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
 import Notifications from '@kyvg/vue3-notification'
-import VueCreditCardValidation from 'vue-credit-card-validation'
+import createPersistedState from 'vuex-persistedstate'
 import App from './App.vue'
 import '@/assets/style.css';
 import router from './router'
 import 'aos/dist/aos.css'
 
+function initialState () {
+    return { 
+        buyerNumber: '',
+        elecProvider: 'Distribution Company',
+        buyerState: 'State',
+        buyerMeterType: 'Prepaid',
+        buyerMeter: '',
+        buyerName: '',
+        buyerEmail: '',
+        amount: '',
+    }
+}
 
 const store = createStore({
-    state() {
-        return {
-            buyerNumber: '',
-            elecProvider: 'Distribution Company',
-            buyerState: 'State',
-            buyerMeterType: 'Prepaid',
-            buyerMeter: '',
-            buyerName: '',
-            buyerEmail: '',
-            amount: '',
-        }
-    },
+    plugins: [
+        createPersistedState({
+            storage: window.sessionStorage,
+        }),
+    ],
+    state: initialState,
     mutations: {
         addElecProvider (state, disco) {
             state.elecProvider = disco
@@ -46,8 +52,15 @@ const store = createStore({
         addAmount (state, price) {
             state.amount = price
         },
-    }
+        reset (state) {
+            // acquire initial state
+            const s = initialState()
+            Object.keys(s).forEach(key => {
+              state[key] = s[key]
+            })
+          }
+    },
 }); 
 
-createApp(App).use(store).use(Notifications).use(VueCreditCardValidation).use(router).mount('#app')
+createApp(App).use(store).use(Notifications).use(router).mount('#app')
 

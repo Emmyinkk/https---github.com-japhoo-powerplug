@@ -43,6 +43,7 @@ import Footer from '@/components/Footer.vue';
             },
             home() {
                 this.$router.push('/')
+                this.$store.commit('reset')
             },
         }
     }
