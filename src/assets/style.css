@@ -145,6 +145,7 @@ button {
     }
     .bar i{
         vertical-align: middle;
+        color: black;
     }
     .r-nav li {
         display: block;
@@ -318,26 +319,39 @@ button {
         margin-top: 0em;
     }
     .proceed {
-        padding: 0em 2em;
+        position: relative;
+        padding: .3em;
         width: 50%;
         box-shadow: none;
     }
+    .proceed p {
+        font-size: 12px;
+        color: white;
+    }
     .nextP {
-        font-size: 10px;
+        position: absolute;
+        font-size: 24px;
+        width: 50%;
+        height: 50%;
+        overflow: auto;
+        margin: auto;
+        top: 0; left: 0; bottom: 0; right: -90px;
     }
     .agent {
+        position: relative;
         width: 45%;
         max-width: 50%;
-        padding: .5em;
+        padding: .3em;
         background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
         box-shadow: none;
         color: white;
+        text-align: center;
     }
-    .agent p {
-        color: white;
-        text-align: left;
-        margin-top: 0em;
-    }
+        /* .agent p {
+            color: white;
+            text-align: left;
+            margin-top: 0em;
+        } */
     .section1 i {
         font-size: 2em;
         vertical-align: middle;
@@ -377,26 +391,22 @@ button {
         overflow:hidden;
     }
     .m-reason {
-        margin-bottom: 2em;
+        /* border: 2px solid #F7F7F7; */
+        padding: 2em 0em;
+        border-radius: .5em;
+        width: 50%;
+        margin: 0 auto;
     }
-    /* .reason h3 {
-        margin-top: 159.82px;
-    } */
-
     .r-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
         margin-top: 20px;
         margin-bottom: 84px;
         overflow: hidden;
     }
-     /* .r_container {
-        width: 85%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-    } */
     .chart {
-        text-align: center;
-        margin-top: 2em;
+        display:none;
     }
     .section2 {
         text-align: center;
@@ -574,12 +584,18 @@ button {
     }
     .f-flex a {
         font-weight: 400;
-        font-size: 10.38835px;
+        font-size: 14px;
         line-height: 186.3%;
+    }
+    .f-flex2 {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1em;
     }
     .footer span {
         font-weight: 400;
-        font-size: 6.24272px;
+        font-size: 5px;
         line-height: 6px;
     }
     .cont1 {
@@ -736,7 +752,7 @@ button {
     .hero2 button {
         background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
         width: 100%;
-        padding: 1em;
+        padding: 1.2em 1em;
     }
     .l-section {
         margin-top: 50px;
@@ -791,10 +807,10 @@ button {
     }
     .f-flex {
         display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        /* justify-content: space-between; */
+        flex-wrap: nowrap;
         gap: 1em;
-        width: 80%;
+        width: 100%;
     }
 
     .download {
@@ -975,6 +991,10 @@ button {
         font-size: 12px;
         margin-bottom: 2em;
     }
+    .r-loop p {
+        font-size: 14px;
+        color: white;
+    }
     .l-icon {
         color: black;
         font-size: 30px;
@@ -993,7 +1013,7 @@ button {
         background: white;
         color: dimgray;
         padding: 20px 20px;
-        height: 150px;
+        height: 120px;
         position: relative;
         cursor: pointer;
     }
@@ -1011,7 +1031,7 @@ button {
     }
     .p-button2 button {
         width: 100%;
-        padding: 1em;
+        padding: 1.2em 1em;
         background: #D91821;
     }
     /* SUCCESS MESSAGE */
@@ -1031,7 +1051,7 @@ button {
         width: 60%;
         position: fixed;
         top: 75px;
-        right: -500px;
+        right: -1000px;
         z-index: 999;
         transition: 0.5s right;
     }
@@ -1175,6 +1195,9 @@ button {
         flex-grow: 1;
         flex-basis: 0;
     }
+    .part {
+        width: 100%;
+    }
 }
 @media only screen and (min-width: 768px) {
     .front-menu {
@@ -1201,6 +1224,7 @@ button {
         display: flex;
         margin-top: 5em;
         width: 90%;
+        flex-direction: row;
     }
     .section3 {
         width: 50%;
@@ -1273,7 +1297,7 @@ button {
         margin-bottom: 0em;
     }
     .chart {
-        margin-top: 0em;
+        display: block
     }
     .a-text {
         font-weight: 500;
@@ -1322,6 +1346,9 @@ button {
     .l-download {
         text-align: center;
         width: 90%;
+    }
+    .r-loop p {
+        font-size: 16px;
     }
     .download {
         display: flex;
@@ -1497,7 +1524,7 @@ button {
         width: auto;
     }
     .pop {
-        margin: 1.3em;
+        margin: 1.3em 0em 1.3em 6em;
         padding-top: .4em;
         width: 60%;
     }
@@ -1649,6 +1676,18 @@ button {
     }
     .success {
         width: 20%;
+    }
+    .part {
+        width: 30%;
+    }
+    .f-flex2 {
+        gap: 4em;
+    }
+    .f-flex a {
+        font-size: 16px;
+    }
+    .proceed p {
+        font-size: 16px;
     }
 }
 @media only screen and (min-width: 1440px) {

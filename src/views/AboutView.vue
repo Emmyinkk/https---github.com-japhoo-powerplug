@@ -34,7 +34,7 @@
                            <input type="number" placeholder="&#8358; Amount" class="i-size" v-model ="amount"  @blur="validateInputA">
                         </transition>
                         <p v-if="amountValidity === 'invalid'" class="msg">This field must not be empty!</p>
-                        <p>A service fee of &#8358;100 will be added automatically</p>
+                        <p class="fee">A service fee of &#8358;100 will be added automatically</p>
                 </div>
                 <button id="pay">Pay {{ results }}</button>
             </form>
@@ -200,7 +200,9 @@ import Footer from '@/components/Footer.vue';
     .list {
         margin-top: .5em;
     }
-
+    .fee {
+        font-size: 12px;
+    }
 @media only screen and (min-width: 280px) {
 
     .topH {

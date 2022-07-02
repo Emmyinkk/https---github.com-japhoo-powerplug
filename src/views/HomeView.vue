@@ -76,10 +76,10 @@
                             <p v-if="elecProviderValidity === 'invalid'" class="msg">An option must be choosen!!</p>
                         </div>
                         <div class="form-control end">
-                            <button class="proceed">Proceed<span><i class="ri-arrow-right-up-line nextP"></i></span></button>
-                            
+                            <button class="proceed"><p>Proceed</p><span><i class="ri-arrow-right-up-line nextP"></i></span></button>
                             <div class="agent">
-                                <a href="tel: 08112345678"><i class="ri-customer-service-2-line cCare"></i><p>Talk to Agent 08112345678</p></a>
+                                <p><a href="tel: 08112345678">Talk to Agent 08112345678</a></p>
+                                <i class="ri-customer-service-2-line cCare"></i>
                             </div>
                         </div>
                     </form>
@@ -278,7 +278,7 @@
                 <div class="r-loop">
                     <div class="form-control2">
                       <input type="email" placeholder="Enter Email Address" v-model="register" @blur="registerSure">
-                      <button>continue</button>
+                      <button><p>Subscribe</p></button>
                     </div>
                 </div>
             </div>
@@ -318,7 +318,6 @@ export default {
                 buyerNumberValidity: 'pending',
                 buyerMeterValidity: 'pending',
                 buyerMeterTypeValidity: 'pending',
-                // amountValidity: 'pending'
             }   
         },
     computed: {
@@ -461,9 +460,13 @@ export default {
         font-size: 20px;
         text-align: left;
     }
+    .l-loop {
+        text-align: center;
+    }
     .backgroundDiv {
         background-image: url('../assets/mainImage.png');
         background-repeat: no-repeat;
+        background-position: center top;
         padding: 8em .5em 1em .5em;
     }
     .i-container {
@@ -475,12 +478,21 @@ export default {
     }
 }
     .agent a {
-       display: flex;
-        flex-wrap: nowrap;
-        gap: .5em;
-        justify-content: center;
         color: white;
         font-size: 12px;
+    }
+    .agent p {
+        width: 60%;
+        margin: 0 auto;
+    }
+    .agent i {
+        position: absolute;
+        font-size: 24px;
+        width: 50%;
+        height: 50%;
+        overflow: auto;
+        margin: auto;
+        top: 0; left: 0; bottom: 0; right: -120px;
     }
     .section-about {
         margin-top: 80px;
@@ -490,6 +502,8 @@ export default {
         font-weight: 500;
         font-size: 14.9932px;
         line-height: 140%;
+        width: 80%;
+        margin: 0 auto;
     }
     .m-reason i {
         margin-top: 1em;
@@ -535,10 +549,10 @@ export default {
         padding: 1.5em 2.5em;
         margin-top: 3em;
     }
-    .down {
+    /* .down {
         margin-left: 5px;
         vertical-align: middle;
-    }
+    } */
     .headerDiv a {
         color: white;
     }
@@ -594,6 +608,9 @@ export default {
         .myForm {
             margin-top: 0em;
         }
+        .l-loop {
+            text-align: left;
+        }
         .backgroundDiv {
             background-image: none;
             padding: 0em;
@@ -638,6 +655,19 @@ export default {
         .headerDiv {
             margin-top: 3em;
             text-align: center;
+        }
+        .agent a {
+            color: white;
+            font-size: 16px;
+        }
+        .agent i {
+            position: absolute;
+            font-size: 24px;
+            width: 50%;
+            height: 50%;
+            overflow: auto;
+            margin: auto;
+            top: 0; left: 0; bottom: 0; right: -140px;
         }
     }
 </style>

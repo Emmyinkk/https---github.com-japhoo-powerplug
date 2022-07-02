@@ -7,7 +7,7 @@
                         <li><router-link to="/"><img src="@/assets/newLogo.png" alt="Powerplug logo"></router-link></li>
                     </div>
                     <div @click="onClick()" class="bar">
-                        <i class="ri-dashboard-line menu"></i>
+                        <i class="ri-menu-line menu"></i>
                     </div>
                 </div>
                 <div class="pop">

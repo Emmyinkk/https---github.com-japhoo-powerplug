@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="f-flex">
-                <div class="f-element">
+                <div class="f-element part">
                     <p class="f-head">Products and Services</p>
                     <router-link to="/">Buy Electricity</router-link><br>
                     <a href="#">Get Electrician <span>coming soon</span></a><br>
@@ -30,21 +30,23 @@
                     <a href="#">Install Solar/Inverter <span>coming soon</span></a><br>
                     <a href="#">Power Shop <span>coming soon</span></a><br>
                 </div>
-                <div class="f-element">
-                    <p class="f-head">Company</p>
-                    <a href="#">Blog</a><br>
-                    <a href="#">Press</a><br>
-                    <a href="#">About Us</a>
-                </div>
-                <div class="f-element">
-                    <p class="f-head">Help</p>
-                    <router-link to="/FAQ">FAQ</router-link><br>
-                    <router-link to="/contact">Contact Us</router-link>
-                </div>
-                <div class="f-element">
-                    <p class="f-head">Transparency</p>
-                    <a href="#">Terms and Conditions</a>>
-                    <a href="#">Privacy Policy</a>
+                <div class="f-flex2">
+                    <div class="f-element">
+                        <p class="f-head">Company</p>
+                        <a href="#">Blog</a><br>
+                        <a href="#">Press</a><br>
+                        <a href="#">About Us</a>
+                    </div>
+                    <div class="f-element">
+                        <p class="f-head">Help</p>
+                        <router-link to="/FAQ">FAQ</router-link><br>
+                        <router-link to="/contact">Contact Us</router-link>
+                    </div>
+                    <div class="f-element">
+                        <p class="f-head">Transparency</p>
+                        <a href="#">Terms and Conditions</a><br>
+                        <a href="#">Privacy Policy</a>
+                    </div>
                 </div>
             </div>
             <div class="f short">
