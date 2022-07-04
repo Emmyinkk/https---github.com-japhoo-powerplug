@@ -16,7 +16,6 @@
     <div class="hero2">
         <div class="container">
             <p class="gren">{{ meterName }}</p>
-            <p class="msg2">All fields must be filled</p>
             <form @submit.prevent="onSubmit" class="form" id="my_form" action="">
                 <div class="form-control" :class="{invalid: buyerNameValidity === 'invalid'}">
                     <transition appear name="slide-fade2">
@@ -36,6 +35,10 @@
                         </transition>
                         <p v-if="amountValidity === 'invalid'" class="msg">This field must not be empty!</p>
                         <p class="fee">A service fee of &#8358;100 will be added automatically</p>
+                </div>
+                 <div class="msg2">
+                    <p>All fields must be filled</p> 
+                    <i @click="onClose2()" class="ri-close-line"></i>
                 </div>
                 <button id="pay">Pay {{ results }}</button>
             </form>
@@ -159,13 +162,29 @@ import Footer from '@/components/Footer.vue';
                 const message = document.querySelector ('.msg2');
 
                 if (this.amount === "" || this.buyerName === "" || this.buyerEmail === "" ) {    
-                    message.style.display = 'block';
+                    message.style.visibility = 'visible';
+                    message.style.opacity = '1';
+                    message.style.height = '25px'
+                    message.style.padding = '.5em'
+                    message.style.marginBottom = '.5em'
+                    message.style.fontSize = '14px'
                 } 
                 else {
                     this.$router.push('/orderReview')
                 }   
             },
+            onClose2() {
+                const message = document.querySelector ('.msg2')
 
+                if(message.style.visibility == 'visible') {
+                        message.style.visibity = 'hidden'
+                        message.style.opacity = '0'
+                        message.style.height = '0'
+                        message.style.padding = '0'
+                        message.style.marginBottom = '0'
+                        message.style.fontSize = '0'
+                }
+            },
             validateInput() {
                 if(this.buyerName === '') {
                     this.buyerNameValidity = 'invalid';

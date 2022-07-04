@@ -382,6 +382,7 @@ export default {
                     message.style.height = '25px'
                     message.style.padding = '.5em'
                     message.style.marginBottom = '.5em'
+                    message.style.fontSize = '14px'
                     console.log("This is for disco " + this.$store.state.buyerState)
                     console.log("This is for store " + this.$store.state.elecProvider)
                 } else {
@@ -415,6 +416,7 @@ export default {
                     message.style.height = '0px'
                     message.style.padding = '0'
                     message.style.marginBottom = '0'
+                    message.style.fontSize = '0'
                }
         },
         fetchApi() {
