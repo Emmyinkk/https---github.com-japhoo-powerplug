@@ -48,7 +48,11 @@ body {
 }
 .msg {
     font-size: 14px;
-    color: #D91821;
+    color: white;
+    background: rgb(170, 116, 124);
+    text-align: center;
+    padding: .1em;
+    margin: .2em;
 }
 .msg1 {
     display: none;
@@ -61,10 +65,27 @@ body {
     color: #D91821;
 }
 .msg2 {
-    display: none;
-    font-size: 20px;
-    color: #D91821;
-    text-align: left;
+    position: relative;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: opacity .3s, height .3s, padding 0.3s, visibility .3s;
+    padding: 0em;
+    background: rgb(170, 116, 124);
+    text-align: center;
+    margin-bottom: 0em;
+}
+.msg2 p, .msg2 i{
+    font-size: 18px;
+    color: white;
+}
+.msg2 i {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    overflow: auto;
+    margin: auto;
+    top: 0; left: 0; bottom: 0; right: -250px;
 }
 .errorMsg {
     display: none;
@@ -272,7 +293,7 @@ button {
         display: none;
     }
     .form-control {
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
     select {
         width: 100%;
@@ -282,6 +303,7 @@ button {
         -webkit-appearance: none;
         background-color: white;
         font-size: 16px;
+        color: black;
     }
     .s-size {
         width: 100%;
@@ -483,6 +505,12 @@ button {
         color: #00BA77;
         font-size: 30px;
     }
+    .gren {
+        color: #00BA77;
+        font-size: 14px;
+        text-align: right;
+    }
+
     .redd {
         color: #D91821;
         font-size: 30px;
@@ -1107,13 +1135,13 @@ button {
     }
     #more {
         color: #636363;
-        padding: 1.5em;
+        padding: 1em 1.5em;
         border: 1px solid #636363;
         background: #fff;
     }
     #g-home {
         background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
-        padding: 1.5em;
+        padding: 1em 1.5em;;
     }
     #g-home a {
         color: white;
@@ -1454,6 +1482,9 @@ button {
     .s-item-container {
         width: 80%;
         margin: 0 auto;
+    }
+    #more, #g-home {
+        padding: 1.5em;
     }
 
 }

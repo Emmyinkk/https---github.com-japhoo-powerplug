@@ -15,6 +15,7 @@
 <div class="buyElectricity">
     <div class="hero2">
         <div class="container">
+            <p class="gren">{{ meterName }}</p>
             <p class="msg2">All fields must be filled</p>
             <form @submit.prevent="onSubmit" class="form" id="my_form" action="">
                 <div class="form-control" :class="{invalid: buyerNameValidity === 'invalid'}">
@@ -128,6 +129,14 @@ import Footer from '@/components/Footer.vue';
                 },
                 set(value) {
                     this.$store.commit('addAmount', value)
+                }
+            },
+            meterName: {
+                get() {
+                    return this.$store.state.meterName
+                },
+                set(value) {
+                    this.$store.commit('addMeterName', value)
                 }
             },
             result() {

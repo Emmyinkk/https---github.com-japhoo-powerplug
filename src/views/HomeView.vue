@@ -21,7 +21,7 @@
             <div class="i-container" id="hero">
                 <div class="l-hero" data-aos="fade-right">
                     <!-- <h5>We are Powerplug</h5> -->
-                    <p class="msg2">All fields must be filled</p>
+                    
                     <form @submit.prevent="onSubmit" class="myForm" id="myForm" action="">
                         <div class="form-control" :class="{invalid: buyerNumberValidity === 'invalid'}">
                             <transition appear name="slide-in">
@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-control" :class="{invalid: buyerMeterValidity === 'invalid'}">
                             <transition appear name="slide-in4">
-                                <input type="text" placeholder="Meter/Account Number" class="i-size" v-model = "buyerMeter"  @blur="validateInput1">
+                                <input type="text" inputmode="numeric" placeholder="Meter/Account Number" class="i-size" v-model = "buyerMeter"  @blur="validateInput1">
                             </transition>
                             <p v-if="buyerMeterValidity === 'invalid'" class="msg">This field must not be empty!</p>
                             <p class="msg3">The number appears to be wrong!</p>
@@ -40,9 +40,9 @@
                         <div class="form-control custom-select" :class="{invalid: buyerMeterTypeValidity === 'invalid'}">
                             <transition appear name="slide-in3">
                                 <select name="meterNo" id="meterNo"  v-model = "buyerMeterType"  @blur="validateInput2">
-                                    <option>Meter Type</option>
+                                    <option selected>Meter Type</option>
                                     <option value="Prepaid">Prepaid</option>
-                                    <option value="Postpaid">Postpaid</option>
+                                    <option value="Postpaid" disabled>Postpaid</option>
                                 </select>
                             </transition>
                             <p v-if="buyerMeterTypeValidity === 'invalid'" class="msg">An option must be choosen!</p>
@@ -50,7 +50,7 @@
                         <div class="form-control custom-select" :class="{invalid: buyerStateValidity === 'invalid'}">
                             <transition appear name="slide-in1">
                                 <select id="State" name="State" v-model = "buyerState"  @blur="validateInput3">
-                                    <option>State</option>
+                                    <option selected>State</option>
                                     <option value="Delta">Delta</option>
                                     <option value="Edo">Edo</option>
                                     <option value="Ekiti">Ekiti</option>
@@ -61,19 +61,19 @@
                         </div>
                         <div class="form-control" id="select" :class="{invalid: elecProviderValidity === 'invalid'}" >
                             <transition appear name="slide-in2">
-                                <select class="i-size" id="State" name="State" v-model = "elecProvider"  @blur="validateInput7">
-                                    <option>Distribution Company</option>
-                                    <option value="BEDC">BEDC</option>
-                                    <option value="IKE" disabled>Ikeja Electric(coming soon)</option>
-                                    <option value="IBEDC" disabled>IBEDC(coming soon)</option>
-                                    <option value="EKEDC" disabled>EKEDC(coming soon)</option>
-                                    <option value="EEDC" disabled>EEDC(coming soon)</option>
-                                    <option value="AEDC" disabled>AEDC(coming soon)</option>
-                                    <option value="PHED" disabled>PHED(coming soon)</option>
-                                    <option value="KEDCO" disabled>KEDCO(coming soon)</option>
+                                <select class="i-size" id="State" name="State" v-model = "elecProvider"  @blur="validateInput7" @click="apiCheck">
+                                    <option selected>Distribution Company</option>
+                                    <template v-for= "disco in discos" :key="disco.id">
+                                        <option v-if="disco.status == 'enabled'"> {{ disco.shortName}}</option>
+                                        <option v-if="disco.status == 'disabled'" :class="{'disabledd' : disco.shortName}" disabled> {{ disco.shortName }} (coming soon) </option>
+                                    </template>
                                 </select>
                             </transition>
                             <p v-if="elecProviderValidity === 'invalid'" class="msg">An option must be choosen!!</p>
+                        </div>
+                        <div class="msg2">
+                            <p>All fields must be filled</p> 
+                            <i @click="onClose2()" class="ri-close-line"></i>
                         </div>
                         <div class="form-control end">
                             <button class="proceed"><p>Proceed</p><span><i class="ri-arrow-right-up-line nextP"></i></span></button>
@@ -301,6 +301,9 @@ import AOS from "aos";
 
 export default {
   name: 'HomeView',
+  created() {
+    this.fetchApi2()
+  },
     setup() {
         onMounted(() => {
             AOS.init();
@@ -318,9 +321,13 @@ export default {
                 buyerNumberValidity: 'pending',
                 buyerMeterValidity: 'pending',
                 buyerMeterTypeValidity: 'pending',
+                discos: '',              
             }   
         },
     computed: {
+        // isDisabled () {
+        //     return this.$store.state.elecProvider.filter( disco => disco.status == 'enabled')
+        // },
         elecProvider: {
             get() {
                 return this.$store.state.elecProvider
@@ -336,6 +343,7 @@ export default {
             set(value) {
                 this.$store.commit('addBuyerNumber', value)
             }
+            
         },
         buyerState: {
             get() {
@@ -365,12 +373,17 @@ export default {
     methods: {
         onSubmit() {
             const message = document.querySelector ('.msg2')
-            const prob = this.$store.state.buyerMeter.length;
+            const prob = this.$store.state.buyerMeter.length
             const telephone = this.$store.state.buyerNumber.length;
 
-             if (this.$store.state.buyerState === "State" || this.$store.state.buyerNumber === "" || telephone > 0 && telephone < 11 || telephone > 11 || this.$store.state.buyerMeter === "" || prob > 0 && prob < 11 || prob === 12 || prob > 13 || this.$store.state.buyerMeterType === "Meter Type" || this.$store.state.buyerDisco === 'Distribution Company' ) {    
-                    message.style.display = 'block';
-            
+             if (this.$store.state.buyerState === "State" || this.$store.state.buyerNumber === "" || telephone > 0 && telephone < 11 || telephone > 11 || this.$store.state.buyerMeter === "" || prob > 0 && prob < 11 || prob === 12 || prob > 13 || this.$store.state.buyerMeterType === "Meter Type" || this.$store.state.elecProvider === 'Distribution Company' ) {    
+                    message.style.visibility = 'visible';
+                    message.style.opacity = '1';
+                    message.style.height = '25px'
+                    message.style.padding = '.5em'
+                    message.style.marginBottom = '.5em'
+                    console.log("This is for disco " + this.$store.state.buyerState)
+                    console.log("This is for store " + this.$store.state.elecProvider)
                 } else {
                     message.style.display = 'none';
                     this.$router.push('/buyElectricity')
@@ -393,8 +406,84 @@ export default {
                     success.classList.remove('showw')
                }
         },
+        onClose2() {
+            const message = document.querySelector ('.msg2')
+
+             if(message.style.visibility == 'visible') {
+                    message.style.visibity = 'hidden'
+                    message.style.opacity = '0'
+                    message.style.height = '0px'
+                    message.style.padding = '0'
+                    message.style.marginBottom = '0'
+               }
+        },
+        fetchApi() {
+            var axios = require('axios');
+            var phoneNumber = this.$store.state.buyerNumber
+            const API = 'https://beta.powerplug.ng/api/class.php'
+            var config = {
+                method: 'get',
+                url: API + '?key=Autofill&PP_API_KEY=P_P_Auth_API_Master_key--><--(...)&phone=' + phoneNumber,
+                headers: { }
+            };
+
+            axios(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                var result = JSON.stringify(response.data)                
+                var result = JSON.parse(result)
+                var state = result.state
+                var res = result.res
+                var meterNo = result.meter_no
+                var meterName = result.meter_name
+                var type = result.meter_type
+                var email = result.email
+                var fullname = result.fullname
+                var disco = result.disco
+                console.log(res)
+                if(res == null) {
+                   this.$store.state.buyerName 
+                   this.$store.state.buyerEmail 
+                   this.$store.state.buyerMeter
+                   this.$store.state.buyerState 
+                   this.$store.state.buyerMeterType
+                   this.$store.state.elecProvider 
+                   this.$store.state.meterName 
+                } else {
+                    this.$store.state.buyerEmail = email
+                    this.$store.state.buyerName = fullname
+                    this.$store.state.buyerMeter = meterNo
+                    this.$store.state.buyerState = state
+                    this.$store.state.buyerMeterType = type
+                    this.$store.state.elecProvider = disco
+                    this.$store.state.meterName = meterName
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
+        fetchApi2() {
+            var axios = require('axios');
+
+            var config = {
+            method: 'get',
+            url: 'https://beta.powerplug.ng/api/class.php?key=Discos&PP_API_KEY=P_P_Auth_API_Master_key--><--(...)',
+            headers: { }
+            };
+
+            axios(config)
+            .then((response) => {
+                this.discos = response.data
+
+                console.log(JSON.stringify(this.discos))
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
+        },
         validateInput4() {
-            const telephone = this.$store.state.buyerNumber.length;
+            const telephone = this.$store.state.buyerNumber.toString().length;
             const wrongNo = document.querySelector ('.msg1')
             if(this.$store.state.buyerNumber === '') {
                 this.buyerNumberValidity = 'invalid';
@@ -407,16 +496,17 @@ export default {
             } else {
                 wrongNo.style.display = 'none'
             }
+            this.fetchApi()
         },
         validateInput3() {
-            if(this.$store.state.buyerState === '--Select State--') {
+            if(this.$store.state.buyerState === 'State') {
                 this.buyerStateValidity = 'invalid';
             } else {
                 this.buyerStateValidity = 'valid'
             }
         },
         validateInput7() {
-            if(this.$store.state.buyerDisco === '--Electricity Provider--') {
+            if(this.$store.state.elecProvider === 'Distribution Company') {
                 this.elecProviderValidity = 'invalid';
             } else {
                 this.elecProviderValidity = 'valid'
@@ -451,7 +541,6 @@ export default {
 
 <style scoped>
  @media only screen and (min-width: 280px) {
-    
     .mainS {
        color: #2D2D2D; 
        font-size: 20px;
@@ -530,6 +619,9 @@ export default {
         font-size: 12px;
         margin-top: 0em;
         text-align: left;
+    }
+    .disabledd {
+        color: grey;
     }
     .postS {
         text-align: left;

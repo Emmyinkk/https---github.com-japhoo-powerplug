@@ -17,6 +17,7 @@ function initialState () {
         buyerName: '',
         buyerEmail: '',
         amount: '',
+        meterName: '',
     }
 }
 
@@ -51,6 +52,9 @@ const store = createStore({
         },
         addAmount (state, price) {
             state.amount = price
+        },
+        addMeterName (state, mName) {
+            state.amount = mName
         },
         reset (state) {
             // acquire initial state
