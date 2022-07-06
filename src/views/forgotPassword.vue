@@ -1,32 +1,34 @@
 <template>
-    <Navbar4 />
-    <div class="cardPayment">
-        <div class='card-container'>
-            <div class="headd">
-                <h2>Forgot Password?</h2>
-                <p class="details">Enter the email address associated with your account.</p>
-            </div>
-            <form @submit.prevent="onSubmit" action="" id="myForm">
-                <div class="form-control equal">
-                    <p class="error">Email Address <span class="errorMsg"> Enter a valid Email Address!</span></p>
-                    <transition appear name="slide-fade2">
-                        <input type="email" v-model="email"  @blur="checkError">
-                    </transition>
+    <div>
+        <Navbar4 />
+        <div class="cardPayment">
+            <div class='card-container'>
+                <div class="headd">
+                    <h2>Forgot Password?</h2>
+                    <p class="details">Enter the email address associated with your account.</p>
                 </div>
-                <div class="p-button2">
-                    <div class="link-layout btn-align">
-                        <router-link to="/merchant"><i class="ri-arrow-left-line"></i>Go back</router-link>
+                <form @submit.prevent="onSubmit" action="" id="myForm">
+                    <div class="form-control equal">
+                        <p class="error">Email Address <span class="errorMsg"> Enter a valid Email Address!</span></p>
+                        <transition appear name="slide-fade2">
+                            <input type="email" v-model="email"  @blur="checkError">
+                        </transition>
                     </div>
-                    <button class="btn-align" id="proceed">Next</button>
-                </div>
-            </form>
+                    <div class="p-button2">
+                        <div class="link-layout btn-align">
+                            <router-link to="/merchant"><i class="ri-arrow-left-line"></i>Go back</router-link>
+                        </div>
+                        <button class="btn-align" id="proceed">Next</button>
+                    </div>
+                </form>
+            </div>
         </div>
+        <div class="success" id="hideMe">
+            <p>You will recieve an email shortly!</p>
+            <i @click="onClose()" class="ri-close-line"></i>
+        </div>
+        <Footer />
     </div>
-    <div class="success" id="hideMe">
-        <p>You will recieve an email shortly!</p>
-        <i @click="onClose()" class="ri-close-line"></i>
-    </div>
-<Footer />
 </template>
 
 <script>

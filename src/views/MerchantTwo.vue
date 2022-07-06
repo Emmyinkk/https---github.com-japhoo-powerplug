@@ -1,139 +1,149 @@
 <template>
-<Navbar></Navbar>
-    <div class="merchantTwo">
-        <div class="mt-container">
-            <h2 class="reg">Register to be a Merchant</h2>
-            <form @submit.prevent="onSubmit" action="">
-                <div class="form-flex">
-                    <div class="form-control equal">
-                        <p>Full Name<span class="asterisk"> *</span></p>
-                        <transition appear name="slide-fade2">
-                            <input type="text" v-model="fullName" @blur="errorCheck" class="input">
-                        </transition>
+    <div class="freeze">
+        <Navbar/>
+        <div class="merchantTwo">
+            <div class="mt-container">
+                <h2 class="reg">Register to be a Merchant</h2>
+                <form @submit.prevent="onSubmit" action="">
+                    <div class="form-flex">
+                        <div class="form-control equal">
+                            <p>Full Name<span class="asterisk"> *</span></p>
+                            <transition appear name="slide-fade2">
+                                <input type="text" v-model="fullName" @blur="errorCheck" class="input">
+                            </transition>
+                        </div>
+                        <div class="form-control equal">
+                            <p>Phone Number<span class="asterisk1"> *</span></p>
+                            <transition appear name="slide-fade">
+                                <input type="tel" v-model="phoneNumber" @blur="errorCheck1" class="input1">
+                            </transition>
+                        </div>
                     </div>
-                    <div class="form-control equal">
-                        <p>Phone Number<span class="asterisk1"> *</span></p>
-                        <transition appear name="slide-fade">
-                            <input type="tel" v-model="phoneNumber" @blur="errorCheck1" class="input1">
-                        </transition>
+                    <div class="form-flex">
+                        <div class="form-control equal">
+                            <p>WhatsApp Number<span class="asterisk2"> *</span></p>
+                            <transition appear name="slide-fade2">
+                                <input type="tel" v-model="wPhoneNumber" @blur="errorCheck2" class="input2">
+                            </transition>
+                        </div>
+                        <div class="form-control equal">
+                            <p>Email Address<span class="asterisk3"> *</span></p>
+                            <transition appear name="slide-fade">
+                                <input type="email" v-model="EmailAddress" @blur="errorCheck3" class="input3">
+                            </transition>
+                        </div>
                     </div>
-                </div>
-                <div class="form-flex">
-                    <div class="form-control equal">
-                        <p>WhatsApp Number<span class="asterisk2"> *</span></p>
-                        <transition appear name="slide-fade2">
-                            <input type="tel" v-model="wPhoneNumber" @blur="errorCheck2" class="input2">
-                        </transition>
+                    <div class="form-flex">
+                        <div class="form-control equal">
+                            <p>Select State<span class="asterisk4"> *</span></p>
+                            <transition appear name="slide-fade2">
+                                <select name="State" v-model = "mState" @blur="errorCheck4" class="input4">
+                                    <option>State</option>
+                                    <option value="Delta">Delta</option>
+                                    <option value="Edo">Edo</option>
+                                    <option value="Ekiti">Ekiti</option>
+                                    <option value="Ondo">Ondo</option>
+                                </select>
+                            </transition>
+                        </div>
+                        <div class="form-control equal">
+                            <p>City<span class="asterisk5"> *</span></p>
+                            <transition appear name="slide-fade">
+                                <input type="text" v-model = "mCity" @blur="errorCheck5" class="input5">
+                            </transition>                        
+                        </div>
                     </div>
-                    <div class="form-control equal">
-                        <p>Email Address<span class="asterisk3"> *</span></p>
-                        <transition appear name="slide-fade">
-                            <input type="email" v-model="EmailAddress" @blur="errorCheck3" class="input3">
-                        </transition>
+                    <div class="form-flex">
+                        <div class="form-control equal">
+                            <p>Address<span class="asterisk6"> *</span></p>
+                            <transition appear name="slide-fade2">
+                                <input type="text" v-model = "mAddress" @blur="errorCheck6" class="input6">
+                            </transition>
+                        </div>
+                        <div class="form-control equal">
+                            <p>Business Name<span class="asterisk7"> *</span></p>
+                            <transition appear name="slide-fade">
+                                <input type="text" v-model = "mbName" @blur="errorCheck7" class="input7">
+                            </transition>                         
+                        </div>
                     </div>
-                </div>
-                <div class="form-flex">
-                    <div class="form-control equal">
-                        <p>Select State<span class="asterisk4"> *</span></p>
-                        <transition appear name="slide-fade2">
-                            <select name="State" v-model = "mState" @blur="errorCheck4" class="input4">
-                                <option>State</option>
-                                <option value="Delta">Delta</option>
-                                <option value="Edo">Edo</option>
-                                <option value="Ekiti">Ekiti</option>
-                                <option value="Ondo">Ondo</option>
-                            </select>
-                        </transition>
+                    <div class="form-flex">
+                        <div class="form-control equal">
+                            <p>Merchant Type<span class="asterisk8"> *</span></p>
+                            <transition appear name="slide-fade2">
+                                <select name="State" v-model = "merchantType"  @blur="errorCheck8" class="input8">
+                                    <option>Merchant Type</option>
+                                    <option value="POS">POS</option>
+                                    <option value="Individual">Individual</option>
+                                    <option value="SBO">Store/ Business owner</option>
+                                </select>
+                            </transition>
+                        </div>
+                        <div class="form-control equal">
+                            <p>Password<span class="asterisk9"> *</span></p>
+                            <transition appear name="slide-fade">
+                                <div class="password">
+                                    <input v-if="showPassword" type="text" class="input9" v-model="mPassword" @blur="errorCheck9" @click="remove()"/>
+                                    <input v-else type="password" class="input9" v-model="mPassword" @blur="errorCheck9" @click="remove()"/> 
+                                    <div class="control">
+                                        <div class="button" @click="toggleShow">
+                                            <span class="icon is-small is-right">
+                                                <i :class="{ 'ri-eye-off-line': showPassword, 'ri-eye-line': !showPassword }"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="strength" :class="'level_' + strengthLevel"></div>
+                                </div>
+                            </transition>                       
+                            <p class="warning">Password must have at least 8 characters including capital letters and digits</p>
+                        </div>
                     </div>
-                    <div class="form-control equal">
-                        <p>City<span class="asterisk5"> *</span></p>
-                        <transition appear name="slide-fade">
-                            <input type="text" v-model = "mCity" @blur="errorCheck5" class="input5">
-                        </transition>                        
-                    </div>
-                </div>
-                <div class="form-flex">
-                    <div class="form-control equal">
-                        <p>Address<span class="asterisk6"> *</span></p>
-                        <transition appear name="slide-fade2">
-                            <input type="text" v-model = "mAddress" @blur="errorCheck6" class="input6">
-                        </transition>
-                    </div>
-                    <div class="form-control equal">
-                        <p>Business Name<span class="asterisk7"> *</span></p>
-                        <transition appear name="slide-fade">
-                            <input type="text" v-model = "mbName" @blur="errorCheck7" class="input7">
-                        </transition>                         
-                    </div>
-                </div>
-                <div class="form-flex">
-                    <div class="form-control equal">
-                        <p>Merchant Type<span class="asterisk8"> *</span></p>
-                        <transition appear name="slide-fade2">
-                            <select name="State" v-model = "merchantType"  @blur="errorCheck8" class="input8">
-                                <option>Merchant Type</option>
-                                <option value="POS">POS</option>
-                                <option value="Individual">Individual</option>
-                                <option value="SBO">Store/ Business owner</option>
-                            </select>
-                        </transition>
-                    </div>
-                    <div class="form-control equal">
-                        <p>Password<span class="asterisk9"> *</span></p>
-                        <transition appear name="slide-fade">
-                            <div class="password">
-                                <input v-if="showPassword" type="text" class="input9" v-model="mPassword" @blur="errorCheck9"/>
-                                <input v-else type="password" class="input9" v-model="mPassword" @blur="errorCheck9"/> 
-                                <div class="control">
-                                    <div class="button" @click="toggleShow">
-                                        <span class="icon is-small is-right">
-                                            <i :class="{ 'ri-eye-line': showPassword, 'ri-eye-off-line': !showPassword }"></i>
-                                        </span>
+                    <div class="form-flex">
+                        <div class="form-control equal">
+                            <p>Confirm Password<span class="asterisk10"> *</span></p>
+                            <transition appear name="slide-fade2">
+                                <div class="password">
+                                    <input v-if="cShowPassword" type="text" class="input10" v-model="mcPassword" @blur="errorCheck10"/>
+                                    <input v-else type="password" class="input10" v-model="mcPassword" @blur="errorCheck10"/> 
+                                    <div class="control">
+                                        <div class="button" @click="cToggleShow">
+                                            <span class="icon is-small is-right">
+                                                <i :class="{ 'ri-eye-off-line': cShowPassword, 'ri-eye-line': !cShowPassword }"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="strength" :class="'level_' + strengthLevel"></div>
-                            </div>
-                        </transition>                       
-                        <p class="warning">Password must have at least 8 characters including capital letters and digits</p>
+                            </transition>
+                            <p class="match">Password does not match!</p>
+                        </div>
+                        <div class="form-control equal">
+                            <p>How did you hear about us <span class="optional">(Optional)</span></p>
+                            <transition appear name="slide-fade">
+                                <input type="text">
+                            </transition>                         
+                        </div>
                     </div>
-                </div>
-                <div class="form-flex">
-                    <div class="form-control equal">
-                        <p>Confirm Password<span class="asterisk10"> *</span></p>
-                        <transition appear name="slide-fade2">
-                            <div class="password">
-                                <input v-if="cShowPassword" type="text" class="input10" v-model="mcPassword" @blur="errorCheck10"/>
-                                <input v-else type="password" class="input10" v-model="mcPassword" @blur="errorCheck10"/> 
-                                <div class="control">
-                                    <div class="button" @click="cToggleShow">
-                                        <span class="icon is-small is-right">
-                                            <i :class="{ 'ri-eye-line': cShowPassword, 'ri-eye-off-line': !cShowPassword }"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </transition>
-                        <p class="match">Password does not match!</p>
+                    <div class="msg2">
+                        <p>Something seems wrong!</p> 
+                        <i @click="onClose2()" class="ri-close-line"></i>
                     </div>
-                    <div class="form-control equal">
-                        <p>How did you hear about us (Optional)</p>
-                        <transition appear name="slide-fade">
-                             <input type="text">
-                        </transition>                         
+                    <div class="center">
+                        <button>Register</button>
                     </div>
+                </form>
+                <div class="signIn">
+                    <p>Already have an account?<router-link to="/merchant"> Sign in instead</router-link></p>
                 </div>
-                <div class="center">
-                    <button>Register</button>
-                </div>
-            </form>
-            <div class="signIn">
-                <p>Already have an account?<router-link to="/merchant"> Sign in instead</router-link></p>
             </div>
+            <div class="blurr" @click="onClose()">
+                <div class="success2" id="hideMe">
+                    <p>Thank you! Thanks for signing up. Welcome to our community. We are happy to have you on board. 
+                        Why don’t you follow us on social media as well?<br><span class="redD">@PowerPlug</span>
+                    </p>
+                </div>
+            </div>
+            <Footer />
         </div>
-        <Footer />
-        <!-- <div class="bottom">
-            <p>© 2021 PowerPlug. Powered by Hespat Technology LTD.</p>
-        </div> -->
     </div>
 </template>
 
@@ -221,15 +231,19 @@ import Footer from "../components/Footer.vue";
                 const input7 = document.querySelector('.input7')                
                 const input8 = document.querySelector('.input8')                
                 const input9 = document.querySelector('.input9')                
-                const input10 = document.querySelector('.input10')     
+                const input10 = document.querySelector('.input10')  
+                const telephone = this.phoneNumber.toString().length;   
+                const wTelephone = this.wPhoneNumber.toString().length;   
+                const pass = this.mPassword.toString().length;   
+                const message = document.querySelector ('.msg2')
 
                 if(this.fullName === '') {
                     input.classList.add('inputBorder')
                 } 
-                if(this.phoneNumber === '') {
+                if(this.phoneNumber === '' || telephone > 0 && telephone < 11 || telephone > 11) {
                     input1.classList.add('inputBorder')
                 }
-                if(this.wPhoneNumber === '') {
+                if(this.wPhoneNumber === '' || wTelephone > 0 && wTelephone < 11 || wTelephone > 11) {
                    input2.classList.add('inputBorder')
                 } 
                 if(this.EmailAddress === '') {
@@ -256,12 +270,35 @@ import Footer from "../components/Footer.vue";
                 if(this.mcPassword === '') {
                     input10.classList.add('inputBorder')
                 }
-                if(this.fullName !== '' || this.phoneNumber !== '' || this.wPhoneNumber !== '' || this.EmailAddress !== '' || this.mState !== 'State' || this.mCity !== '' || this.mAddress !== '' || this.mbName !== '' || this.merchantType !== 'Merchant Type' || this.mPassword !== '' || this.mcPassword !== '' && this.mcPassword === this.mPassword){
-                    this.$notify({ 
-                        type: "success", 
-                        text: "Your registration will be confirmed shortly!" 
-                    });
+                if(this.fullName === '' || this.phoneNumber === '' || telephone > 0 && telephone < 11 || telephone > 11  || this.wPhoneNumber === '' || wTelephone > 0 && wTelephone < 11 || wTelephone > 11 || this.EmailAddress === '' || this.mState === 'State' || this.mCity === '' || this.mAddress === '' || this.mbName === '' || this.merchantType === 'Merchant Type' || this.mPassword === '' || pass < 8 || this.mcPassword === '' && this.mcPassword !== this.mPassword){
+                    message.style.visibility = 'visible';
+                    message.style.opacity = '1';
+                    message.style.height = '20px'
+                    message.style.padding = '.5em'
+                    message.style.marginBottom = '.5em'
+                    message.style.fontSize = '14px'
+                } else {
+                    const modal = document.querySelector('.success2')
+                    const blur = document.querySelector ('.blurr')
+                    const fixed = document.querySelector ('.freeze')
+
+                    blur.style.display = 'block'
+                    modal.style.display = 'block'
+                    if(fixed.classList.contains('fixed') === false) {
+                        fixed.classList.add('fixed')
+                    } else {
+                        fixed.classList.remove('fixed')
+                    }
                 }
+            },
+            onClose() {
+                const modal = document.querySelector('.success2')
+                const blur = document.querySelector ('.blurr')
+                const fixed = document.querySelector ('.freeze')
+
+                blur.style.display = 'none'
+                 modal.style.display = 'none'
+                fixed.classList.remove('fixed')
             },
             errorCheck() {
                 const asterisk = document.querySelector ('.asterisk'); 
@@ -364,42 +401,66 @@ import Footer from "../components/Footer.vue";
             errorCheck8() { 
                 const asterisk8 = document.querySelector ('.asterisk8');
                 const input = document.querySelector('.input8');
+                const warning = document.querySelector('.warning');
 
-                if(this.merchantType !== '--Merchant Type--') {
+                if(this.merchantType !== 'Merchant Type') {
                     asterisk8.style.color = 'green';
                     input.classList.add('inputBorder1')
                 }  else {
                     asterisk8.style.color = 'red';
                     input.classList.add('inputBorder')
+                    warning.style.display = 'block'
                 }
             },
             errorCheck9() {
-                const warning = document.querySelector('.warning');
-                const input = document.querySelector('.input10');
+                const asterisk9 = document.querySelector ('.asterisk9');
+                const input = document.querySelector('.input9');
 
                 if(this.mPassword !== '' ) {
-                    warning.style.display = 'none';
+                    asterisk9.style.color = 'green';
                     input.classList.add('inputBorder1')
+                } else {
+                    input.classList.add('inputBorder')
                 }
+            },
+            remove() {
+                const warning = document.querySelector('.warning');
+
+                warning.style.display = 'none'
             },
             errorCheck10() { 
                 const asterisk10 = document.querySelector ('.asterisk10');
                 const input = document.querySelector('.input10');
                 const match = document.querySelector ('.match')
 
-                if(this.mcPassword !== '' && this.mcPassword !== this.mPassword) {
+                if(this.mcPassword !== this.mPassword || this.mPassword === '') {
                     match.style.display = 'block';
                     asterisk10.style.color = 'red';
+                    input.classList.add('inputBorder')
                 } else {
                     match.style.display = 'none'
-                }
-
-                if(this.mcPassword !== '') {
                     asterisk10.style.color = 'green';
                     input.classList.add('inputBorder1')
-                }  else {
-                    asterisk10.style.color = 'red';
-                    input.classList.add('inputBorder')
+                }
+
+                // if(this.mcPassword !== '') {
+                //     asterisk10.style.color = 'green';
+                //     input.classList.add('inputBorder1')
+                // }  else {
+                //     asterisk10.style.color = 'red';
+                //     input.classList.add('inputBorder')
+                // }
+            },
+            onClose2() {
+                const message = document.querySelector ('.msg2')
+
+                if(message.style.visibility == 'visible') {
+                        message.style.visibity = 'hidden'
+                        message.style.opacity = '0'
+                        message.style.height = '0px'
+                        message.style.padding = '0'
+                        message.style.marginBottom = '0'
+                        message.style.fontSize = '0'
                 }
             },
         },
@@ -407,13 +468,24 @@ import Footer from "../components/Footer.vue";
 </script>
 
 <style scoped>
+    .showw {
+        top: 0;
+    }
+    .fixed {
+        position: fixed;
+        width: 100%;
+       overflow: hidden
+    }
+    .optional {
+        font-size: 12px;
+    }
     .password {
         position: relative;
         z-index: 10;
     }
     .strength {
         position: absolute;
-        bottom: -8px;
+        bottom: -5px;
         left: 0;
         right: 0;
         display: block;
@@ -435,17 +507,17 @@ import Footer from "../components/Footer.vue";
     background-color: #BB4440;
 }
 .level_2 {
-    bottom: -10px;
+    bottom: -5px;
     width: 50%;
     background-color: #E17D30;
 }
 .level_3 {
-    bottom: -10px;
+    bottom: -5px;
     width: 75%;
     background-color: #F0B03F;
 }
 .level_4 {
-    bottom: -10px;
+    bottom: -5px;
     width: 100%;
     background-color: #a5df41;
 }
@@ -454,8 +526,8 @@ import Footer from "../components/Footer.vue";
     background: none;
     color: black;
     box-shadow: none;
-    font-size: 20px;
-    top: 11px;
+    font-size: 24px;
+    top: 15px;
     right: 10px;
 }
 .inputBorder {
@@ -521,7 +593,7 @@ import Footer from "../components/Footer.vue";
     }
     .warning {
         color: #D91821;
-        font-size: 10px;
+        font-size: 12px;
     }
     .character1 {
         font-size: 13px;
@@ -544,7 +616,8 @@ import Footer from "../components/Footer.vue";
     }
     @media only screen and (min-width: 768px) {
         .mt-container {
-            width: 60%;
+            width: 80%;
+            max-width: 800px;
             margin: 0 auto;
         }
     }

@@ -1,68 +1,75 @@
 <template>
-<Navbar3></Navbar3>
-<div class="topH">
-    <ul class="headerNav">
-        <router-link class="mHeaderNav" to="/buyElectricity"><li class="list">Buy Electricity</li></router-link>
-        <span class="mHeaderNav disabled-link"><router-link to="/orderReview"><li>Order Review</li></router-link></span>
-        <span class="mHeaderNav disabled-link"><router-link to="/completeOrder"><li>Order Complete</li></router-link></span>
-    </ul>
-</div>
-<div class="header">
-    <p class="chang">There's been slight changes in tariff across some DisCos (this means you may receive lesser or more units from the usual amount). 
-        For more information about this, please reach out to Your Electricity Distribution company.
-    </p> 
-</div>
-<div class="buyElectricity">
-    <div class="hero2">
-        <div class="container">
-            <p class="gren">{{ meterName }}</p>
-            <form @submit.prevent="onSubmit" class="form" id="my_form" action="">
-                <div class="form-control" :class="{invalid: buyerNameValidity === 'invalid'}">
-                    <transition appear name="slide-fade2">
-                        <input type="text" placeholder="Buyer Name" id="name" v-model.trim = "buyerName" @blur="validateInput">
-                    </transition>
-                    <p v-if="buyerNameValidity === 'invalid'" class="msg">This field must not be empty!</p>
+    <div>
+        <Navbar3/>
+        <div class="topH">
+            <ul class="headerNav">
+                <router-link class="mHeaderNav pad" to="/buyElectricity"><li class="list">Buy Electricity</li></router-link>
+                <span class="mHeaderNav disabled-link pad2"><router-link to="/orderReview"><li>Order Review</li></router-link></span>
+                <span class="mHeaderNav disabled-link pad2"><router-link to="/completeOrder"><li>Order Complete</li></router-link></span>
+            </ul>
+        </div>
+        <div class="header">
+            <p class="chang">There's been slight changes in tariff across some DisCos (this means you may receive lesser or more units from the usual amount). 
+                For more information about this, please reach out to Your Electricity Distribution company.
+            </p> 
+        </div>
+        <div class="buyElectricity">
+            <div class="hero2">
+                <div class="container">
+                    <p  v-if="meterName !== ''" class="gren">{{ meterName }} - meter</p>
+                    <p v-else></p>
+                    <form @submit.prevent="onSubmit" class="form" id="my_form" action="">
+                        <div class="form-control" :class="{invalid: buyerNameValidity === 'invalid'}">
+                            <transition appear name="slide-fade2">
+                                <input type="text" placeholder="Buyer Name" id="name" v-model.trim = "buyerName" @blur="validateInput">
+                            </transition>
+                            <p v-if="buyerNameValidity === 'invalid'" class="msg">This field must not be empty!</p>
+                        </div>
+                        <div class="form-control" :class="{invalid: buyerEmailValidity === 'invalid'}">
+                            <transition appear name="slide-fade">
+                                <input type="email" placeholder="Email" id="email" v-model.trim = "buyerEmail" @blur="validateInput2">
+                            </transition>
+                            <p v-if="buyerEmailValidity === 'invalid'" class="msg">This field must not be empty!</p>
+                        </div>
+                        <div class="form-control" :class="{invalid: amountValidity === 'invalid'}">
+                            <transition appear name="slide-fade2">
+                                <input type="number" placeholder="&#8358; Amount" class="i-size" v-model ="amount"  @blur="validateInputA">
+                            </transition>
+                            <p v-if="amountValidity === 'invalid'" class="msg">This field must not be empty!</p>
+                            <p class="fee">A service fee of &#8358;{{ this.$store.state.charges }} will be added automatically</p>
+                            <div class="msg2">
+                                <p>Minimum amount is {{ this.minBuy }}</p> 
+                                <i @click="onClose2()" class="ri-close-line"></i>
+                            </div>
+                        </div>
+                        <div class="msg2">
+                            <p>All fields must be filled</p> 
+                            <i @click="onClose2()" class="ri-close-line"></i>
+                        </div>
+                        <button id="pay">Pay {{ results }}</button>
+                    </form>
                 </div>
-                <div class="form-control" :class="{invalid: buyerEmailValidity === 'invalid'}">
-                    <transition appear name="slide-fade">
-                        <input type="email" placeholder="Email" id="email" v-model.trim = "buyerEmail" @blur="validateInput2">
-                    </transition>
-                    <p v-if="buyerEmailValidity === 'invalid'" class="msg">This field must not be empty!</p>
-                </div>
-                <div class="form-control" :class="{invalid: amountValidity === 'invalid'}">
-                        <transition appear name="slide-fade2">
-                           <input type="number" placeholder="&#8358; Amount" class="i-size" v-model ="amount"  @blur="validateInputA">
-                        </transition>
-                        <p v-if="amountValidity === 'invalid'" class="msg">This field must not be empty!</p>
-                        <p class="fee">A service fee of &#8358;100 will be added automatically</p>
-                </div>
-                 <div class="msg2">
-                    <p>All fields must be filled</p> 
-                    <i @click="onClose2()" class="ri-close-line"></i>
-                </div>
-                <button id="pay">Pay {{ results }}</button>
-            </form>
+            </div>
         </div>
     </div>
-</div>
-<Footer></Footer>
 </template>
 
 <script>
 import Navbar3 from '@/components/Navbar3.vue';
-import Footer from '@/components/Footer.vue';
+
     export default {
         name: 'AboutView',
         components: {
             Navbar3,
-            Footer
+        },
+        created() {
+            this.fetchApi()
         },
         data() {
             return {
                 register: '',
                 noFiles: null,
-                charges: 100,
-                confirm: false,
+                minBuy: '',
                 buyerNameValidity: 'pending',
                 buyerEmailValidity: 'pending',
                 files: null,
@@ -134,6 +141,14 @@ import Footer from '@/components/Footer.vue';
                     this.$store.commit('addAmount', value)
                 }
             },
+            charges: {
+                get() {
+                    return this.$store.state.charges
+                },
+                set(value) {
+                    this.$store.commit('addCharges', value)
+                }
+            },
             meterName: {
                 get() {
                     return this.$store.state.meterName
@@ -146,7 +161,7 @@ import Footer from '@/components/Footer.vue';
                 if(this.amount === '') {
                     return ''
                 } else {
-                    return parseInt(this.charges) + parseInt(this.amount)
+                    return parseInt(this.$store.state.charges) + parseInt(this.amount)
                 }
             },
             results() {
@@ -161,10 +176,10 @@ import Footer from '@/components/Footer.vue';
             onSubmit() {
                 const message = document.querySelector ('.msg2');
 
-                if (this.amount === "" || this.buyerName === "" || this.buyerEmail === "" ) {    
+                if (this.amount === "" || this.$store.state.amount < this.minBuy || this.buyerName === "" || this.buyerEmail === "" ) {    
                     message.style.visibility = 'visible';
                     message.style.opacity = '1';
-                    message.style.height = '25px'
+                    message.style.height = '20px'
                     message.style.padding = '.5em'
                     message.style.marginBottom = '.5em'
                     message.style.fontSize = '14px'
@@ -204,7 +219,41 @@ import Footer from '@/components/Footer.vue';
                     this.amountValidity = 'invalid';
                 } else {
                     this.amountValidity = 'valid'
+                    console.log(this.minBuy)
                 }
+            },
+            fetchApi() {
+                var axios = require('axios');
+                const API = 'https://beta.powerplug.ng/api/class.php'
+                const Key = 'P_P_Auth_API_Master_key--><--(...)'
+
+                var config = {
+                method: 'get',
+                url: API + `?PP_API_KEY=${Key}&key=Payment_Det`,
+                headers: { }
+                };
+
+                axios(config)
+                .then((response) => {
+                    console.log(JSON.stringify(response.data));
+                    var result = JSON.stringify(response.data)                
+                    var result = JSON.parse(result)
+                    var fee = result.processing_fee
+                    var min = result.minBuy
+                    var bank = result.bank
+                    var account_no = result.account_number
+                    var account_name = result.account_name
+
+                    this.minBuy = min
+                    this.$store.state.charges = fee
+                    this.$store.state.bank = bank
+                    this.$store.state.account_no = account_no
+                    this.$store.state.account_name = account_name
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+
             },
         }
     }
@@ -226,65 +275,35 @@ import Footer from '@/components/Footer.vue';
         text-decoration: none;
     }
     .list {
-        margin-top: .5em;
+        padding-top: .3em;
+    }
+    .pad1, .pad {
+        padding: 1em;
+    }
+    .pad2 {
+        padding: .75em;
     }
     .fee {
         font-size: 12px;
     }
-@media only screen and (min-width: 280px) {
-
-    .topH {
-        margin-top: 3.2em;
-    }
-    .mHeaderNav {
-        padding: 1em;
-    }
-    .headerNav a {
-        font-size: 12px;
-    }
-}
 @media only screen and (min-width: 1024px) {
     .Navbar3 {
         margin-top: -.8em;
         z-index: 999;
     }
-    .topH {
-        margin-top: 5em;
-    }
-    .pop {
-        padding-top: 0em;
-        margin-top: 1em;
-        margin-right: 0em;
-    }
     .l-item {
         margin-top: -.5em;
     }
-    .mHeaderNav {
+    .pad1, .pad {
         padding: 1.5em;
     }
-    .headerNav a {
-        font-size: 15px;
+    .pad2 {
+        padding: 1.41em;
+    }
+    .list {
+        padding-top: 0em;
     }
 }
-    .headerNav {
-        display: flex;
-        justify-content: space-between;
-        gap: .1em;
-    }
-    .headerNav a {
-        color: white;
-    }
-    .headerNav a:hover {
-        background: linear-gradient(90.05deg, #D91821 -5.66%, #FB0F1A 115.63%);
-    }
-    .mHeaderNav {
-        border-radius: 0;
-        box-shadow: none;
-        flex-grow: 1;
-        flex-basis: 0;
-        background: #C4C4C4;
-        text-align: center;
-    }
     .buyElectricity {
         display: flex;
         height: 50vh;

@@ -1,44 +1,46 @@
 <template>
-<Navbar></Navbar>
-    <div class="contact">
-        <div class="contact2">
-            <div class="cc-cont">
-                <transition appear name="fade">
-                    <p class="c-header">Let’s Get in Touch</p>
-                </transition>
-                <form @submit.prevent="onSubmit" action="" id="myForm">
-                    <div class="form-flex">
-                        <div class="form-control equal">
-                            <p class="error">Full Name <span class="errorMsg"> Cannot be Empty!</span></p>
-                            <transition appear name="slide-fade2">
-                                <input type="text" v-model="bName" @blur="checkError">
+    <div>
+        <Navbar/>
+        <div class="contact">
+            <div class="contact2">
+                <div class="cc-cont">
+                    <transition appear name="fade">
+                        <p class="c-header">Let’s Get in Touch</p>
+                    </transition>
+                    <form @submit.prevent="onSubmit" action="" id="myForm">
+                        <div class="form-flex">
+                            <div class="form-control equal">
+                                <p class="error">Full Name <span class="errorMsg"> Cannot be Empty!</span></p>
+                                <transition appear name="slide-fade2">
+                                    <input type="text" v-model="bName" @blur="checkError">
+                                </transition>
+                            </div>
+                            <div class="form-control equal">
+                                <p class="error1">Email Address <span class="errorMsg1"> Cannot be Empty!</span></p>
+                                <transition appear name="slide-fade">
+                                    <input type="email" v-model="bEmail" @blur="checkError1">
+                                </transition>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <p class="textss error2">Message <span class="errorMsg2"> There has to me a message ;)</span></p>
+                            <transition appear name="slide-fade3">
+                                <textarea name="Message" id="message" cols="30" rows="10" v-model="bText" @blur="checkError2"></textarea>
                             </transition>
                         </div>
-                        <div class="form-control equal">
-                            <p class="error1">Email Address <span class="errorMsg1"> Cannot be Empty!</span></p>
-                            <transition appear name="slide-fade">
-                                <input type="email" v-model="bEmail" @blur="checkError1">
-                            </transition>
+                        <div class="form-control cc-align">
+                            <button>SUBMIT</button>
                         </div>
-                    </div>
-                    <div class="form-control">
-                        <p class="textss error2">Message <span class="errorMsg2"> There has to me a message ;)</span></p>
-                        <transition appear name="slide-fade3">
-                            <textarea name="Message" id="message" cols="30" rows="10" v-model="bText" @blur="checkError2"></textarea>
-                        </transition>
-                    </div>
-                    <div class="form-control cc-align">
-                        <button>SUBMIT</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+            </div>
+            <div class="success" id="hideMe">
+                <p>Thanks for your feedback. We appreciate it!</p>
+                <i @click="onClose()" class="ri-close-line"></i>
             </div>
         </div>
-         <div class="success" id="hideMe">
-            <p>Thanks for your feedback. We appreciate it!</p>
-            <i @click="onClose()" class="ri-close-line"></i>
-        </div>
+        <Footer />
     </div>
-    <Footer />
 </template>
 
 <script>

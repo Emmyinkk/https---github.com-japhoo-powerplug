@@ -1,29 +1,31 @@
 <template>
-<Navbar></Navbar>
-    <div class="FMT">
-        <div class="fm-container">
-            <p class="reg">Need to find your token for a previous transaction? please use the search form below</p>
-            <p class="incorrect">Something appears to be wrong</p>
-            <form @submit.prevent="onSubmit" action="" id="MyForm">
-                <div class="form-control">
-                    <p class="error">Meter Number <span class="errorMsg"> Cannot be Empty!</span><span class="wrongN">The Meter Number appears to be wrong</span></p>
-                    <transition appear name="slide-fade2">
-                        <input type="text" class="i-size" v-model ="mNumber" @blur="checkError">
-                    </transition>
-                </div>
-                <div class="form-control">
-                    <p class="error1">Phone Number <span class="errorMsg1"> Cannot be Empty!</span><span class="wrongNo">The Meter Number appears to be wrong</span></p>
-                     <transition appear name="slide-fade2">
-                        <input type="tel" v-model="bNumber" @blur="validateNumber">
-                     </transition>
-                </div>
-                <div class="center">
-                    <button>Search</button>
-                </div>
-            </form>
+    <div>
+        <Navbar/>
+        <div class="FMT">
+            <div class="fm-container">
+                <p class="reg">Need to find your token for a previous transaction? please use the search form below</p>
+                <p class="incorrect">Something appears to be wrong</p>
+                <form @submit.prevent="onSubmit" action="" id="MyForm">
+                    <div class="form-control">
+                        <p class="error">Meter Number <span class="errorMsg"> Cannot be Empty!</span><span class="wrongN">The Meter Number appears to be wrong</span></p>
+                        <transition appear name="slide-fade2">
+                            <input type="text" class="i-size" v-model ="mNumber" @blur="checkError">
+                        </transition>
+                    </div>
+                    <div class="form-control">
+                        <p class="error1">Phone Number <span class="errorMsg1"> Cannot be Empty!</span><span class="wrongNo">The Meter Number appears to be wrong</span></p>
+                        <transition appear name="slide-fade2">
+                            <input type="tel" v-model="bNumber" @blur="validateNumber">
+                        </transition>
+                    </div>
+                    <div class="center">
+                        <button>Search</button>
+                    </div>
+                </form>
+            </div>
         </div>
+        <Footer />
     </div>
-    <Footer />
 </template>
 
 <script>
@@ -131,5 +133,16 @@ import Footer from "@/components/Footer.vue";
     .center button {
         width: 100%;
         padding: 1em;
+    }
+     .slide-fade2-enter-active {
+        transition: all 1s ease;
+    }
+    .slide-fade2-leave-active {
+        transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1)
+    }
+    .slide-fade2-enter-from,
+    .slide-fade2-leave-to {
+        transform: translateY(20px);
+        opacity: 0;
     }
 </style>

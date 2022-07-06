@@ -1,296 +1,291 @@
 <template>
-<Navbar></Navbar>
-<div class="home">
-    <!-- <div class="front-menu">
-            <ul>
-                <li class="fButton"><router-link to="/merchant">Merchant</router-link></li>
-                <li class="fButton"><router-link to="/FMT">Find My Token</router-link></li>
-                <li class="fButton"><router-link to="/FAQ">FAQ</router-link></li>
-            </ul>
-    </div> -->
-    <div class="hero">
-        <transition appear name="fade">
-            <div class="headerDiv">
-                <p class="buyP">Buy Electricity Instantly With Powerplug</p>
-                <p class="miniText">We're here to help you pay for your electricity bills from your comfort and get your tokens instantly</p>
-                <button><a href="#hero">Buy Electricity<span><i class="ri-arrow-down-line down"></i></span></a></button>
+    <div>
+        <Navbar/>
+        <div class="home">
+            <div class="hero">
+                <transition appear name="fade">
+                    <div class="headerDiv">
+                        <p class="buyP">Buy Electricity Instantly With Powerplug</p>
+                        <p class="miniText">We're here to help you pay for your electricity bills from your comfort and get your tokens instantly</p>
+                        <a href="#hero"><button>Buy Electricity<span><i class="ri-arrow-down-line down"></i></span></button></a>
+                    </div>
+                </transition>
             </div>
-        </transition>
-    </div>
-        <div class="backgroundDiv">
-            <div class="i-container" id="hero">
-                <div class="l-hero" data-aos="fade-right">
-                    <!-- <h5>We are Powerplug</h5> -->
+                <div class="backgroundDiv" id="hero">
+                    <div class="i-container">
+                        <div class="l-hero" data-aos="fade-right">
+                            <!-- <h5>We are Powerplug</h5> -->
+                            
+                            <form @submit.prevent="onSubmit" class="myForm" id="myForm" action="">
+                                <div class="form-control" :class="{invalid: buyerNumberValidity === 'invalid'}">
+                                    <transition appear name="slide-in">
+                                        <input type="tel" placeholder="Phone Number" class="i-size" v-model ="buyerNumber" @blur="validateInput4">
+                                    </transition>
+                                    <p v-if="buyerNumberValidity === 'invalid'" class="msg">This field must not be empty!</p>
+                                    <p class="msg1">The number appears to be wrong!</p>
+                                </div>
+                                <div class="form-control" :class="{invalid: buyerMeterValidity === 'invalid'}">
+                                    <transition appear name="slide-in4">
+                                        <input type="text" inputmode="numeric" placeholder="Meter/Account Number" class="i-size" v-model = "buyerMeter"  @blur="validateInput1">
+                                    </transition>
+                                    <p v-if="buyerMeterValidity === 'invalid'" class="msg">This field must not be empty!</p>
+                                    <p class="msg3">The number appears to be wrong!</p>
+                                </div>
+                                <div class="form-control custom-select" :class="{invalid: buyerMeterTypeValidity === 'invalid'}">
+                                    <transition appear name="slide-in3">
+                                        <select name="meterNo" id="meterNo"  v-model = "buyerMeterType"  @blur="validateInput2">
+                                            <option selected>Meter Type</option>
+                                            <option value="Prepaid">Prepaid</option>
+                                            <option value="Postpaid" disabled>Postpaid</option>
+                                        </select>
+                                    </transition>
+                                    <p v-if="buyerMeterTypeValidity === 'invalid'" class="msg">An option must be choosen!</p>
+                                </div>
+                                <div class="form-control custom-select" :class="{invalid: buyerStateValidity === 'invalid'}">
+                                    <transition appear name="slide-in1">
+                                        <select id="State" name="State" v-model = "buyerState"  @blur="validateInput3">
+                                            <option selected>State</option>
+                                            <option value="Delta">Delta</option>
+                                            <option value="Edo">Edo</option>
+                                            <option value="Ekiti">Ekiti</option>
+                                            <option value="Ondo">Ondo</option>
+                                        </select>
+                                    </transition>
+                                    <p v-if="buyerStateValidity === 'invalid'" class="msg">An option must be choosen!</p>
+                                </div>
+                                <div class="form-control" id="select" :class="{invalid: elecProviderValidity === 'invalid'}" >
+                                    <transition appear name="slide-in2">
+                                        <select class="i-size" id="State" name="State" v-model = "elecProvider"  @blur="validateInput7" @click="apiCheck">
+                                            <option selected>Distribution Company</option>
+                                            <template v-for= "disco in discos" :key="disco.id">
+                                                <option v-if="disco.status == 'enabled'"> {{ disco.shortName}}</option>
+                                                <option v-if="disco.status == 'disabled'" :class="{'disabledd' : disco.shortName}" disabled> {{ disco.shortName }} (coming soon) </option>
+                                            </template>
+                                        </select>
+                                    </transition>
+                                    <p v-if="elecProviderValidity === 'invalid'" class="msg">An option must be choosen!!</p>
+                                </div>
+                                <div class="msg2">
+                                    <p>All fields must be filled</p> 
+                                    <i @click="onClose2()" class="ri-close-line"></i>
+                                </div>
+                                <div class="form-control end">
+                                    <button class="proceed"><p>Proceed</p><span><i class="ri-arrow-right-up-line nextP"></i></span></button>
+                                    <div class="agent">
+                                        <p><a href="tel: 08112345678">Talk to Agent 08112345678</a></p>
+                                        <i class="ri-customer-service-2-line cCare"></i>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> 
+                        <div class="r-hero" data-aos="fade-left">
+                            <img src="../assets/mainImage.png" alt="image">
+                        </div> 
+                </div>
+                </div>
+            <!-- <div class="service">
+                <i class="ri-chat-4-fill chatbot" id="chatBot"></i>
+            </div> -->
+            <div class="section-about">
+                    <div class="aboutP">
+                <div class="about">
+                    <div class="fill">
+                        <i class="ri-map-pin-2-fill"></i>
+                    </div>            
+                    <p class="aState"><span class="mainS">30+</span><br>States</p>
+                </div>
+                <div class="about">
+                    <div class="fill">
+                        <i class="ri-archive-drawer-fill"></i>
+                    </div>     
+                    <div class="postS">
+                        <p class="post"><span class="mainS">1000+</span> <br>
+                            Postpaid & Prepaid Meters
+                        </p>
+                        <!-- <p></p>
+                        <p></p> -->
+                    </div>        
+                </div>
+                <div class="about">
+                    <div class="fill">
+                        <i class="ri-user-fill"></i>
+                    </div>            
+                    <p class="cus"><span class="mainS">90+</span><br>Customers</p>
+                </div>
+            </div>
+            </div>
+            <div class="reason">
+                <div class="r_container">
+                    <div>
+                        <h3 data-aos="fade-right" class="gradient-text">Why should you use Powerplug?</h3>
+                        <img src="../assets/Group.png" alt="Chart" class="chart">
+                    </div>
+                    <div class="r-container" data-aos="fade-left">
+                        <div class="m-reason">
+                            <i class="ri-smartphone-fill"></i>
+                            <p>Purchase your token from your device</p>
+                        </div>
+                        <div class="m-reason down">
+                            <i class="ri-lightbulb-fill"></i>
+                            <p>Get your Electricity restored instantly</p>
+                        </div>
+                        <div class="m-reason">
+                            <i class="ri-customer-service-fill"></i>
+                            <p>24/7 customer support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section2">
+                <div class="aboutUs">
+                    <h3 class="gradient-text" data-aos="fade-left">About Us</h3>
+                    <p class="a-text" data-aos="fade-right">PowerPlug is an internet powered platform that allows users purchase electricity token instantly anywhere
+                        and anytime. Our satisfaction is to provide our customers with ultimate convenience. Your Power plug anywhere, anytime</p>
+                </div>
+                <div class="product">
+                    <h3 class="gradient-text" data-aos="fade-right">Product and Services</h3>
+                    <div class="p_icon" data-aos="fade-left">
+                        <div class="_icon">
+                            <a href="#hero"><i class="ri-lightbulb-flash-fill green"></i></a>
+                            <p class="namE">Buy Electricity</p>
+                        </div>
+                        <div class="_icon">
+                            <i class="ri-user-2-fill redd"></i>
+                            <p class="namE">Get Electrician</p>
+                            <p class="cms">Coming Soon</p>
+                        </div>
+                        <div class="_icon">
+                            <i class="material-symbols-outlined redd">solar_power</i>
+                            <!-- <img src="../assets/solarPanel.png" alt=""> -->
+                            <p class="namE">Install Solar/Inverter</p>
+                            <p class="cms">Coming Soon</p>
+                        </div>
+                        <div class="_icon">
+                            <i class="material-symbols-outlined redd">shopping_cart</i>
+                            <!-- <img src="../assets/cart.png" alt=""> -->
+                            <p class="namE">Power Shop</p>
+                            <p class="cms">Coming Soon</p>
+                        </div>
+                        <div class="_icon">
+                            <img src="../assets/image24.png" alt="" class="gen">
+                            <p class="namE">Get Generator Repairer</p>
+                            <p class="cms">Coming Soon</p>
+                        </div>
+                        <div class="_icon">
+                            <img src="../assets/image25.png" alt="" class="ac">
+                            <p class="namE">Get AC Repairer</p>
+                            <p class="cms">Coming Soon</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section3">
+                <!-- class="gradient-text" -->
+                <h5 data-aos="fade-right">Our Service Providers</h5>
+                <div class="s-menu">
+                    <div class="s-menu-m">
+                        <div class="m-item">
+                            <img src="../assets/bedc.png" alt="bedc logo" style="margin-top: 1.5em;">
+                        </div>
+                        <div class="m-item">
+                            <img src="../assets/ikeja.png" alt="Ikeja electric logo">
+                            <p>Coming Soon</p>
+                        </div>
+                        <div class="m-item">
+                            <img src="../assets/ibedc.png" alt="IBEDC logo" >
+                            <p>Coming Soon</p>
+                        </div>
+                        <div class="m-item">
+                            <img src="../assets/ekedc.png" alt="Eko Electric logo">
+                            <p>Coming Soon</p>
+                        </div>
                     
-                    <form @submit.prevent="onSubmit" class="myForm" id="myForm" action="">
-                        <div class="form-control" :class="{invalid: buyerNumberValidity === 'invalid'}">
-                            <transition appear name="slide-in">
-                                <input type="tel" placeholder="Phone Number" class="i-size" v-model ="buyerNumber" @blur="validateInput4">
-                            </transition>
-                            <p v-if="buyerNumberValidity === 'invalid'" class="msg">This field must not be empty!</p>
-                            <p class="msg1">The number appears to be wrong!</p>
+                    </div>
+                    <div class="s-menu-m">
+                        <div class="m-item">
+                            <img src="../assets/eedc.png" alt="Enugu Electric logo" >
+                            <p>Coming Soon</p>
                         </div>
-                        <div class="form-control" :class="{invalid: buyerMeterValidity === 'invalid'}">
-                            <transition appear name="slide-in4">
-                                <input type="text" inputmode="numeric" placeholder="Meter/Account Number" class="i-size" v-model = "buyerMeter"  @blur="validateInput1">
-                            </transition>
-                            <p v-if="buyerMeterValidity === 'invalid'" class="msg">This field must not be empty!</p>
-                            <p class="msg3">The number appears to be wrong!</p>
+                        <div class="m-item">
+                            <img src="../assets/aedc.png" alt="Abuja electric logo" >
+                            <p>Coming Soon</p>
                         </div>
-                        <div class="form-control custom-select" :class="{invalid: buyerMeterTypeValidity === 'invalid'}">
-                            <transition appear name="slide-in3">
-                                <select name="meterNo" id="meterNo"  v-model = "buyerMeterType"  @blur="validateInput2">
-                                    <option selected>Meter Type</option>
-                                    <option value="Prepaid">Prepaid</option>
-                                    <option value="Postpaid" disabled>Postpaid</option>
-                                </select>
-                            </transition>
-                            <p v-if="buyerMeterTypeValidity === 'invalid'" class="msg">An option must be choosen!</p>
+                        <div class="m-item">
+                            <img src="../assets/phed.png" alt="PHED logo">
+                            <p>Coming Soon</p>
                         </div>
-                        <div class="form-control custom-select" :class="{invalid: buyerStateValidity === 'invalid'}">
-                            <transition appear name="slide-in1">
-                                <select id="State" name="State" v-model = "buyerState"  @blur="validateInput3">
-                                    <option selected>State</option>
-                                    <option value="Delta">Delta</option>
-                                    <option value="Edo">Edo</option>
-                                    <option value="Ekiti">Ekiti</option>
-                                    <option value="Ondo">Ondo</option>
-                                </select>
-                            </transition>
-                            <p v-if="buyerStateValidity === 'invalid'" class="msg">An option must be choosen!</p>
+                        <div class="m-item">
+                            <img src="../assets/kedco.png" alt="Eko Electric logo">
+                            <p>Coming Soon</p>
                         </div>
-                        <div class="form-control" id="select" :class="{invalid: elecProviderValidity === 'invalid'}" >
-                            <transition appear name="slide-in2">
-                                <select class="i-size" id="State" name="State" v-model = "elecProvider"  @blur="validateInput7" @click="apiCheck">
-                                    <option selected>Distribution Company</option>
-                                    <template v-for= "disco in discos" :key="disco.id">
-                                        <option v-if="disco.status == 'enabled'"> {{ disco.shortName}}</option>
-                                        <option v-if="disco.status == 'disabled'" :class="{'disabledd' : disco.shortName}" disabled> {{ disco.shortName }} (coming soon) </option>
-                                    </template>
-                                </select>
-                            </transition>
-                            <p v-if="elecProviderValidity === 'invalid'" class="msg">An option must be choosen!!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section4">
+                <div class="ss-container">
+                    <div class="l-download" data-aos="fade-right">
+                        <img src="../assets/mobile.png" alt="image">
+                    </div>
+                    <div class="r-download">
+                        <h2 >Download Powerplug Mobile App Today</h2>
+                        <div class="download">
+                            <button class="b-flex">
+                                <img src="../assets/image21.png" alt="playstore">
+                                <p>Soon On<br><span>Google Play</span></p>
+                            </button>
+                            <button class="b-flex2">
+                                <img src="../assets/image22.png" alt="apple">
+                                <p>Soon On<br><span>App Store</span></p>
+                            </button>
                         </div>
-                        <div class="msg2">
-                            <p>All fields must be filled</p> 
-                            <i @click="onClose2()" class="ri-close-line"></i>
-                        </div>
-                        <div class="form-control end">
-                            <button class="proceed"><p>Proceed</p><span><i class="ri-arrow-right-up-line nextP"></i></span></button>
-                            <div class="agent">
-                                <p><a href="tel: 08112345678">Talk to Agent 08112345678</a></p>
-                                <i class="ri-customer-service-2-line cCare"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="section5">
+                <div class="s_container">
+                    <h3 class="gradient-text" data-aos="fade-right">Testimonials</h3>
+                    <div class="s_flex">
+                        <div class="r_items">
+                            <div class="contents">
+                                <h2>Olaoluwa Adetula</h2>
+                                <p>Top notch service by @powerplugng . Excellent service in less than 5mins. I got notified through text and email.</p>
+                            </div>
+                    </div>
+                    <div class="r_items">
+                            <div class="contents">
+                                <h2>Henry</h2>
+                                <p>As a first time user, I love your service. Highly commendable.</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="l-section">
+                <div class="l-container">
+                    <form @submit.prevent="emailRegister()" action="">
+                        <div class="l-flex">
+                        <div class="l-loop">
+                            <p class="s-loop">Stay in the loop</p>
+                            <p class="s-loop2">Subscribe to receive the latest news and updates about TDA.
+                                We promise not to spam you! </p>
+                        </div>
+                        <div class="r-loop">
+                            <div class="form-control2">
+                            <input type="email" placeholder="Enter Email Address" v-model="register" @blur="registerSure">
+                            <button><p>Subscribe</p></button>
+                            </div>
+                        </div>
+                    </div>
                     </form>
-                </div> 
-                <div class="r-hero" data-aos="fade-left">
-                    <img src="../assets/mainImage.png" alt="image">
-                </div> 
-        </div>
-        </div>
-    <!-- <div class="service">
-        <i class="ri-chat-4-fill chatbot" id="chatBot"></i>
-    </div> -->
-    <div class="section-about">
-            <div class="aboutP">
-        <div class="about">
-            <div class="fill">
-                <i class="ri-map-pin-2-fill"></i>
-            </div>            
-            <p class="aState"><span class="mainS">30+</span><br>States</p>
-        </div>
-        <div class="about">
-            <div class="fill">
-                <i class="ri-archive-drawer-fill"></i>
-            </div>     
-            <div class="postS">
-                <p class="post"><span class="mainS">1000+</span> <br>
-                    Postpaid & Prepaid Meters
-                </p>
-                <!-- <p></p>
-                <p></p> -->
-            </div>        
-        </div>
-        <div class="about">
-            <div class="fill">
-                <i class="ri-user-fill"></i>
-            </div>            
-            <p class="cus"><span class="mainS">90+</span><br>Customers</p>
-        </div>
-    </div>
-    </div>
-    <div class="reason">
-        <div class="r_container">
-            <div>
-                <h3 data-aos="fade-right" class="gradient-text">Why should you use Powerplug?</h3>
-                <img src="../assets/Group.png" alt="Chart" class="chart">
-            </div>
-            <div class="r-container" data-aos="fade-left">
-                <div class="m-reason">
-                    <i class="ri-smartphone-fill"></i>
-                    <p>Purchase your token from your device</p>
-                </div>
-                <div class="m-reason down">
-                    <i class="ri-lightbulb-fill"></i>
-                    <p>Get your Electricity restored instantly</p>
-                </div>
-                <div class="m-reason">
-                    <i class="ri-customer-service-fill"></i>
-                    <p>24/7 customer support</p>
                 </div>
             </div>
+            <div class="success" id="hideMe">
+                <p>Thanks for registering. We will definitely keep you in the loop!</p>
+                <i @click="onClose()" class="ri-close-line"></i>
+            </div>
+            <Footer/>
         </div>
     </div>
-    <div class="section2">
-        <div class="aboutUs">
-            <h3 class="gradient-text" data-aos="fade-left">About Us</h3>
-            <p class="a-text" data-aos="fade-right">PowerPlug is an internet powered platform that allows users purchase electricity token instantly anywhere
-                 and anytime. Our satisfaction is to provide our customers with ultimate convenience. Your Power plug anywhere, anytime</p>
-        </div>
-        <div class="product">
-            <h3 class="gradient-text" data-aos="fade-right">Product and Services</h3>
-            <div class="p_icon" data-aos="fade-left">
-                <div class="_icon">
-                    <a href="#hero"><i class="ri-lightbulb-flash-fill green"></i></a>
-                    <p class="namE">Buy Electricity</p>
-                </div>
-                <div class="_icon">
-                    <i class="ri-user-2-fill redd"></i>
-                    <p class="namE">Get Electrician</p>
-                    <p class="cms">Coming Soon</p>
-                </div>
-                <div class="_icon">
-                    <i class="material-symbols-outlined redd">solar_power</i>
-                    <!-- <img src="../assets/solarPanel.png" alt=""> -->
-                    <p class="namE">Install Solar/Inverter</p>
-                    <p class="cms">Coming Soon</p>
-                </div>
-                <div class="_icon">
-                    <i class="material-symbols-outlined redd">shopping_cart</i>
-                    <!-- <img src="../assets/cart.png" alt=""> -->
-                    <p class="namE">Power Shop</p>
-                    <p class="cms">Coming Soon</p>
-                </div>
-                <div class="_icon">
-                    <img src="../assets/image24.png" alt="" class="gen">
-                    <p class="namE">Get Generator Repairer</p>
-                    <p class="cms">Coming Soon</p>
-                </div>
-                <div class="_icon">
-                    <img src="../assets/image25.png" alt="" class="ac">
-                    <p class="namE">Get AC Repairer</p>
-                    <p class="cms">Coming Soon</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="section3">
-        <!-- class="gradient-text" -->
-        <h5 data-aos="fade-right">Our Service Providers</h5>
-        <div class="s-menu">
-            <div class="s-menu-m">
-                <div class="m-item">
-                    <img src="../assets/bedc.png" alt="bedc logo" style="margin-top: 1.5em;">
-                </div>
-                <div class="m-item">
-                    <img src="../assets/ikeja.png" alt="Ikeja electric logo">
-                    <p>Coming Soon</p>
-                </div>
-                <div class="m-item">
-                    <img src="../assets/ibedc.png" alt="IBEDC logo" >
-                    <p>Coming Soon</p>
-                </div>
-                <div class="m-item">
-                    <img src="../assets/ekedc.png" alt="Eko Electric logo">
-                    <p>Coming Soon</p>
-                </div>
-               
-            </div>
-            <div class="s-menu-m">
-                 <div class="m-item">
-                    <img src="../assets/eedc.png" alt="Enugu Electric logo" >
-                    <p>Coming Soon</p>
-                </div>
-                <div class="m-item">
-                    <img src="../assets/aedc.png" alt="Abuja electric logo" >
-                    <p>Coming Soon</p>
-                </div>
-                <div class="m-item">
-                    <img src="../assets/phed.png" alt="PHED logo">
-                    <p>Coming Soon</p>
-                </div>
-                <div class="m-item">
-                    <img src="../assets/kedco.png" alt="Eko Electric logo">
-                    <p>Coming Soon</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="section4">
-        <div class="ss-container">
-            <div class="l-download" data-aos="fade-right">
-                <img src="../assets/mobile.png" alt="image">
-            </div>
-            <div class="r-download">
-                <h2 >Download Powerplug Mobile App Today</h2>
-                <div class="download">
-                    <button class="b-flex">
-                        <img src="../assets/image21.png" alt="playstore">
-                        <p>Soon On<br><span>Google Play</span></p>
-                    </button>
-                    <button class="b-flex2">
-                        <img src="../assets/image22.png" alt="apple">
-                        <p>Soon On<br><span>App Store</span></p>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="section5">
-        <div class="s_container">
-            <h3 class="gradient-text" data-aos="fade-right">Testimonials</h3>
-            <div class="s_flex">
-                <div class="r_items">
-                    <div class="contents">
-                        <h2>Olaoluwa Adetula</h2>
-                        <p>Top notch service by @powerplugng . Excellent service in less than 5mins. I got notified through text and email.</p>
-                    </div>
-               </div>
-               <div class="r_items">
-                    <div class="contents">
-                        <h2>Henry</h2>
-                        <p>As a first time user, I love your service. Highly commendable.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="l-section">
-        <div class="l-container">
-            <form @submit.prevent="emailRegister()" action="">
-                 <div class="l-flex">
-                <div class="l-loop">
-                    <p class="s-loop">Stay in the loop</p>
-                    <p class="s-loop2">Subscribe to receive the latest news and updates about TDA.
-                        We promise not to spam you! </p>
-                </div>
-                <div class="r-loop">
-                    <div class="form-control2">
-                      <input type="email" placeholder="Enter Email Address" v-model="register" @blur="registerSure">
-                      <button><p>Subscribe</p></button>
-                    </div>
-                </div>
-            </div>
-            </form>
-        </div>
-    </div>
-    <div class="success" id="hideMe">
-        <p>Thanks for registering. We will definitely keep you in the loop!</p>
-        <i @click="onClose()" class="ri-close-line"></i>
-    </div>
-    <Footer></Footer>
-  </div>
 </template>
 
 <script>
@@ -379,12 +374,10 @@ export default {
              if (this.$store.state.buyerState === "State" || this.$store.state.buyerNumber === "" || telephone > 0 && telephone < 11 || telephone > 11 || this.$store.state.buyerMeter === "" || prob > 0 && prob < 11 || prob === 12 || prob > 13 || this.$store.state.buyerMeterType === "Meter Type" || this.$store.state.elecProvider === 'Distribution Company' ) {    
                     message.style.visibility = 'visible';
                     message.style.opacity = '1';
-                    message.style.height = '25px'
+                    message.style.height = '20px'
                     message.style.padding = '.5em'
                     message.style.marginBottom = '.5em'
                     message.style.fontSize = '14px'
-                    console.log("This is for disco " + this.$store.state.buyerState)
-                    console.log("This is for store " + this.$store.state.elecProvider)
                 } else {
                     message.style.display = 'none';
                     this.$router.push('/buyElectricity')
@@ -436,34 +429,59 @@ export default {
                 var result = JSON.parse(result)
                 var state = result.state
                 var res = result.res
-                var meterNo = result.meter_no
-                var meterName = result.meter_name
-                var type = result.meter_type
                 var email = result.email
                 var fullname = result.fullname
-                var disco = result.disco
-                console.log(res)
+
                 if(res == null) {
-                   this.$store.state.buyerName 
-                   this.$store.state.buyerEmail 
-                   this.$store.state.buyerMeter
-                   this.$store.state.buyerState 
-                   this.$store.state.buyerMeterType
-                   this.$store.state.elecProvider 
-                   this.$store.state.meterName 
+                   this.$store.state.buyerName = ''
+                   this.$store.state.buyerEmail = ''
+                   this.$store.state.buyerState = 'State'
                 } else {
                     this.$store.state.buyerEmail = email
                     this.$store.state.buyerName = fullname
-                    this.$store.state.buyerMeter = meterNo
                     this.$store.state.buyerState = state
-                    this.$store.state.buyerMeterType = type
-                    this.$store.state.elecProvider = disco
-                    this.$store.state.meterName = meterName
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
+        },
+        fetchMeter() {
+            var axios = require('axios');
+            const API = 'https://beta.powerplug.ng/api/class.php'
+            // var meter_no = this.$store.state.buyerMeter
+            
+
+            var config = {
+            method: 'get',
+            url: API + `?meter_no=${this.$store.state.buyerMeter}&PP_API_KEY=P_P_Auth_API_Master_key--><--(...)&key=MeterInfo`,
+            headers: { }
+            };
+
+            axios(config)
+                .then((response) => {
+                console.log(JSON.stringify(response.data));
+                var result = JSON.stringify(response.data)                
+                var result = JSON.parse(result)
+                var res = result.res
+                var meterName = result.meter_name
+                var disco = result.disco
+                var type = result.meter_type
+
+                if(res == '0') {
+                   this.$store.state.meterName = ''
+                   this.$store.state.elecProvider = 'Distribution Company',
+                   this.$store.state.buyerMeterType = 'Prepaid'
+                } else {
+                    this.$store.state.meterName = meterName
+                    this.$store.state.elecProvider = disco
+                    this.$store.state.buyerMeterType = type
+                }
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
+
         },
         fetchApi2() {
             var axios = require('axios');
@@ -515,7 +533,7 @@ export default {
             }
         },
         validateInput2() {
-            if(this.$store.state.buyerMeterType === '--Select your meter type--') {
+            if(this.$store.state.buyerMeterType === 'Meter Type') {
                 this.buyerMeterTypeValidity = 'invalid';
             } else {
                 this.buyerMeterTypeValidity = 'valid'
@@ -536,12 +554,14 @@ export default {
             else {
                 wrongN.style.display = 'none'
             }
+            this.fetchMeter();
         },
     },
 }
 </script>
 
 <style scoped>
+
  @media only screen and (min-width: 280px) {
     .mainS {
        color: #2D2D2D; 
@@ -586,7 +606,6 @@ export default {
         top: 0; left: 0; bottom: 0; right: -120px;
     }
     .section-about {
-        margin-top: 80px;
         margin-bottom: 100px;
     }
     .m-reason p {
@@ -643,10 +662,6 @@ export default {
         padding: 1.5em 2.5em;
         margin-top: 3em;
     }
-    /* .down {
-        margin-left: 5px;
-        vertical-align: middle;
-    } */
     .headerDiv a {
         color: white;
     }

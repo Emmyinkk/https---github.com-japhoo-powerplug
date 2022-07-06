@@ -17,7 +17,11 @@ function initialState () {
         buyerName: '',
         buyerEmail: '',
         amount: '',
+        charges: '',
         meterName: '',
+        bank: '',
+        account_no: '',
+        account_name: '',
     }
 }
 
@@ -53,8 +57,20 @@ const store = createStore({
         addAmount (state, price) {
             state.amount = price
         },
+        addCharges(state, charges) {
+            state.charges = charges
+        },
         addMeterName (state, mName) {
             state.amount = mName
+        },
+        addBank (state, bank) {
+            state.bank = bank
+        },
+        addAccount_no (state, aNumber) {
+            state.account_no = aNumber
+        },
+        addAccount_name (state, aName) {
+            state.account_name = aName
         },
         reset (state) {
             // acquire initial state

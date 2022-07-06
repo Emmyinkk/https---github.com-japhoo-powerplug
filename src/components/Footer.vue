@@ -23,7 +23,8 @@
             <div class="f-flex">
                 <div class="f-element part">
                     <p class="f-head">Products and Services</p>
-                    <router-link to="/">Buy Electricity</router-link><br>
+                    <router-link :to="{ name: 'Home', hash: '#hero', replace: 'true'}">Buy Electricity</router-link><br>
+                    <!-- <a href="#hero">Buy Electricity</a><br> -->
                     <a href="#">Get Electrician <span>coming soon</span></a><br>
                     <a href="#">Get Generator Repairer <span>coming soon</span></a><br>
                     <a href="#">Get AC Repairer <span>coming soon</span></a><br>

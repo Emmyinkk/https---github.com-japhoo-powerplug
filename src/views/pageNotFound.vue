@@ -1,18 +1,20 @@
 <template>
-<Navbar4 />
-    <div class="pageNotFound">
-        <h1>404</h1>
-        <h2>Page Not Found</h2>
-        <router-link to="/"> Go Home </router-link>
+    <div>
+        <Navbar4 />
+        <div class="pageNotFound">
+            <h1>404</h1>
+            <h2>Page Not Found</h2>
+            <router-link to="/"> Go Home </router-link>
+        </div>
     </div>
 </template>
 
 <script>
-    import Navbar3 from '@/components/Navbar3.vue';
+    import Navbar4 from '@/components/Navbar4.vue';
 
     export default {
         components: {
-            Navbar3,
+            Navbar4,
         },
     }
 </script>

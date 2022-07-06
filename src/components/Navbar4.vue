@@ -22,7 +22,7 @@
     .l-nav {
         width: 85%;
         margin: 0 auto;
-        text-align: left;
+        text-align: left; 
     }
     .l-nav img {
         top: -.2em;
@@ -35,6 +35,7 @@
             width: 90%;
             margin: 0 auto;
             text-align: left;
+            padding-top: 1.1em;
         }
         .l-nav img {
             top: 0;

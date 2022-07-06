@@ -1,43 +1,45 @@
 <template>
-<Navbar></Navbar>
-    <div class="merchant">
-        <div class="m-container">
-            <h2 class="reg">Login as a Merchant</h2>
-            <form @submit.prevent="onSubmit" action="" id="MyForm">
-                <div class="form-control">
-                    <p class="error">Phone Number <span class="errorMsg"> Cannot be Empty!</span><span class="errorM"> Number looks wrong!</span></p>
-                    <transition appear name="slide-fade2">
-                        <input type="tel" class="i-size" v-model ="bNumber" @blur="checkError"/>
-                    </transition>
-                </div>
-                <div class="form-control">
-                    <p class="error1">Password <span class="errorMsg1"> Cannot be Empty!</span></p>
-                     <transition appear name="slide-fade2">
-                        <!-- @blur="checkError1"  @blur="checkError"-->
-                        <div class="password">
-                            <input v-if="showPassword" type="text" class="input" v-model="bPassword" @blur="checkError1"/>
-                            <input v-else type="password" class="input" v-model="bPassword" @blur="checkError1"/> 
-                            <div class="control">
-                                <div class="button" @click="toggleShow">
-                                    <span class="icon is-small is-right">
-                                        <i :class="{ 'ri-eye-line': showPassword, 'ri-eye-off-line': !showPassword }"></i>
-                                    </span>
+    <div>
+        <Navbar/>
+        <div class="merchant">
+            <div class="m-container">
+                <h2 class="reg">Login as a Merchant</h2>
+                <form @submit.prevent="onSubmit" action="" id="MyForm">
+                    <div class="form-control">
+                        <p class="error">Phone Number <span class="errorMsg"> Cannot be Empty!</span><span class="errorM"> Number looks wrong!</span></p>
+                        <transition appear name="slide-fade2">
+                            <input type="tel" class="i-size" v-model ="bNumber" @blur="checkError"/>
+                        </transition>
+                    </div>
+                    <div class="form-control">
+                        <p class="error1">Password <span class="errorMsg1"> Cannot be Empty!</span></p>
+                        <transition appear name="slide-fade2">
+                            <!-- @blur="checkError1"  @blur="checkError"-->
+                            <div class="password">
+                                <input v-if="showPassword" type="text" class="input" v-model="bPassword" @blur="checkError1"/>
+                                <input v-else type="password" class="input" v-model="bPassword" @blur="checkError1"/> 
+                                <div class="control">
+                                    <div class="button" @click="toggleShow">
+                                        <span class="icon is-small is-right">
+                                            <i :class="{ 'ri-eye-off-line': showPassword, 'ri-eye-line': !showPassword }"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                     </transition>
+                        </transition>
+                    </div>
+                    <div class="center">
+                        <button>Login</button>
+                    </div>
+                </form>
+                <div class="m-register">
+                    <p><router-link to="/forgotPassword">Forgot Password?</router-link></p>
+                    <p><router-link to="/merchantTwo">Register as a new Merchant</router-link></p>
                 </div>
-                <div class="center">
-                    <button>Login</button>
-                </div>
-            </form>
-            <div class="m-register">
-                <p><router-link to="/forgotPassword">Forgot Password?</router-link></p>
-                <p><router-link to="/merchantTwo">Register as a new Merchant</router-link></p>
             </div>
         </div>
-    </div>
     <Footer />
+    </div>
 </template>
 
 <script>
@@ -128,8 +130,6 @@ import Footer from '@/components/Footer.vue';
     display: flex;
     justify-content: center;
     align-items: center;
-    /* padding-top: 5em; */
-    /* padding-bottom: 2em; */
 }
 .password {
     position: relative;
@@ -137,12 +137,10 @@ import Footer from '@/components/Footer.vue';
 .button {
     position: absolute;
     background: none;
-    /* padding: 1em;
-    border-radius: 0; */
     color: black;
     box-shadow: none;
-    font-size: 20px;
-    top: 11px;
+    font-size: 24px;
+    top: 15px;
     right: 10px;
 }
 .reg {

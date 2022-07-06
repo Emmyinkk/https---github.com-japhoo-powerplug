@@ -1,41 +1,45 @@
 <template>
-<Navbar />
-    <div class="faq_wrapper">
-        <h1>Frequently asked questions.</h1>
-        <h3>TOKEN SERVICES FAQs</h3>
-        <div class="faq_field_wrap">
-            <div class="faq_field" v-for="(faq, i) in faqBase" 
-            :key="i">
-                <div class="open_faq" @click="cloaseAllFaq(faq)">
-                    <h4>
-                        {{ faq.q }}
-                        <i class="ri-add-line" :class="faq.open ? 'rotate' :
-                        ''"></i>
-                    </h4>
-                    <p class="invisible" :class="faq.open ? 'visible' :''">
-                        {{ faq.a }}
-                    </p>
+    <div>
+        <Navbar />
+        <div class="FAQ">
+            <div class="faq_wrapper">
+                <h1>Frequently asked questions.</h1>
+                <h3>TOKEN SERVICES FAQs</h3>
+                <div class="faq_field_wrap">
+                    <div class="faq_field" v-for="(faq, i) in faqBase" 
+                    :key="i">
+                        <div class="open_faq" @click="cloaseAllFaq(faq)">
+                            <h4>
+                                {{ faq.q }}
+                                <i class="ri-add-line" :class="faq.open ? 'rotate' :
+                                ''"></i>
+                            </h4>
+                            <p class="invisible" :class="faq.open ? 'visible' :''">
+                                {{ faq.a }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <h3>Meter FAQs</h3>
+                <div class="faq_field_wrap">
+                    <div class="faq_field" v-for="(faq, i) in faqBase2" 
+                    :key="i">
+                        <div class="open_faq" @click="cloaseAllFaq2(faq)">
+                            <h4>
+                                {{ faq.q2 }}
+                                <i class="ri-add-line" :class="faq.open2 ? 'rotate' :
+                                ''"></i>
+                            </h4>
+                            <p class="invisible" :class="faq.open2 ? 'visible' :''">
+                                {{ faq.a2 }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <h3>Meter FAQs</h3>
-        <div class="faq_field_wrap">
-            <div class="faq_field" v-for="(faq, i) in faqBase2" 
-            :key="i">
-                <div class="open_faq" @click="cloaseAllFaq2(faq)">
-                    <h4>
-                        {{ faq.q2 }}
-                        <i class="ri-add-line" :class="faq.open2 ? 'rotate' :
-                        ''"></i>
-                    </h4>
-                    <p class="invisible" :class="faq.open2 ? 'visible' :''">
-                        {{ faq.a2 }}
-                    </p>
-                </div>
-            </div>
-        </div>
+        <Footer />
     </div>
-<Footer />
 </template>
 
 <script>
@@ -162,6 +166,12 @@ export default {
 </script>
 
 <style scoped>
+.FAQ {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
     .faq_wrapper {
         text-align: left;
         width: 85%;

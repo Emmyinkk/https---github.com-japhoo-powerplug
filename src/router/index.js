@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/merchant',
     name: 'Merchant',
-   
+    
     component: () => import( '../views/Merchant.vue')
   },
   {
